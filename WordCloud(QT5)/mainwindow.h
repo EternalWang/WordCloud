@@ -5,6 +5,7 @@
 #include<QHBoxLayout>
 #include<map>
 #include<vector>
+#include<set>
 using namespace std;
 struct Node
 {
@@ -37,6 +38,7 @@ private:
     QHBoxLayout *layout;
     map<QString,int> mp;
     vector<Node> v;
+    set<QString> st;
 };
 
 #endif // MAINWINDOW_H

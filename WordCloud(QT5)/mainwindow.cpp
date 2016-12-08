@@ -4,6 +4,7 @@
 #include<QLabel>
 #include<QDebug>
 #include<algorithm>
+#define k(a,b) int a##b;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
@@ -37,6 +38,34 @@ MainWindow::MainWindow(QWidget *parent) :
     centralW->setLayout(layout);
     setCentralWidget(centralW);
 
+    st.insert("The");
+    st.insert("In");
+    st.insert("To");
+    st.insert("Is");
+    st.insert("It");
+    st.insert("Of");
+    st.insert("Are");
+    st.insert("Also");
+    st.insert("Which");
+    st.insert("A");
+    st.insert("On");
+    st.insert("Can");
+    st.insert("At");
+    st.insert("That");
+    st.insert("They");
+    st.insert("And");
+    st.insert("When");
+    st.insert("For");
+    st.insert("From");
+    st.insert("Here");
+    st.insert("If");
+    st.insert("Into");
+    st.insert("Its");
+    st.insert("Most");
+    st.insert("Not");
+    st.insert("You");
+    st.insert("Will");
+    st.insert("An");
 }
 
 MainWindow::~MainWindow()
@@ -52,6 +81,7 @@ bool cmpNode(Node a,Node b)//Node的比较函数
 {
     return a.times>b.times;
 }
+
 
 void MainWindow::openFile()
 {
@@ -79,6 +109,14 @@ void MainWindow::openFile()
             while(r<s.size()&&judge(s[r]))
                 r++;
             tmp=s.mid(l,r-l);
+            tmp[0]=tmp[0].toUpper();//首字符大写，其余小写。
+            for(int i=1;i<tmp.size();i++)
+                tmp[i]=tmp[i].toLower();
+            if(st.find(tmp)!=st.end())
+            {
+                l=r;
+                continue;
+            }
             p=mp.find(tmp);
             if(p==mp.end())
                 mp[tmp]=1;
@@ -94,10 +132,19 @@ void MainWindow::openFile()
             node.word=p->first;
             node.times=p->second;
             v.push_back(node);
+            /*QLabel *l=new QLabel("%",this->rightW);
+            l->setGeometry(20,20,50,10);
+            l->show();*/
         }
         sort(v.begin(),v.end(),cmpNode);//按词频降序排序并保存到v中
         for(int i=0;i<v.size();i++)
+        {
             qDebug()<<v[i].times<<v[i].word;
+            QLabel *l=new QLabel(v[i].word,this->rightW);
+            l->setGeometry(20+i*50,20+i*10,100,100);
+            l->show();
+        }
+
         file.close();
     } else {
         QMessageBox::warning(this, tr("Path"), tr("You did not select any file."));
