@@ -1,0 +1,13 @@
+Clothing computer design systems include three integrated parts: garment pattern design in 2D/3D,
+virtual try-on and realistic clothing simulation. Some important results have been obtained in pattern
+design and clothing simulation since the 1980s. However, in the area of virtual try-on, only limited
+methods have been proposed which are applicable to some defined garment styles or under restrictive
+sewing assumptions. This paper presents a series of new techniques from virtually sewing up complex
+garment patterns on human models to visualizing design effects through physical-based real-time
+simulation. We first employ an hierarchy of ellipsoids to approximate human models in which the
+bounding ellipsoids are optimized recursively.Wealso present a new scheme for including contact friction
+and resolving collisions. Four types of user interactive operation are introduced to manipulate cloth
+patterns for pre-positioning, virtual sewing and later obtaining cloth simulation. In the cloth simulation,
+we propose a simplified cloth dynamic model and an integration scheme to realize a high quality realtime
+cloth simulation.Wedemonstrate the robustness of our proposed systems by complex garment style
+virtual try-on and cloth simulation.
