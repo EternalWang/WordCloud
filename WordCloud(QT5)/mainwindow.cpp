@@ -30,9 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     centralW=new QWidget(this);
     textEdit = new QTextEdit();
-    textEdit->setMinimumSize(400,600);
+    textEdit->setMinimumWidth(300);
     rightW = new QWidget();
-    rightW->setMinimumSize(1000,600);
     layout=new QHBoxLayout;
     layout->addWidget(textEdit);
     layout->addWidget(rightW);
@@ -69,16 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("Will");
     st.insert("An");
     memset(fill,0,sizeof(fill));
-    /*QLabel *test0=new QLabel("t",rightW);
-    QFont *font0=new QFont("Courier",400);
-    //fontt->setPixelSize(400);
-    //QFont f()
-    test0->setFont(*font0);*/
-    //test->resize(100,30);
-    /*QLabel *test1=new QLabel("test1",rightW);
-    QFont *font1=new QFont("Courier",100);
-    test1->setFont(*font1);
-    //qDebug()<<test->size();*/
+    g=new QGridLayout();
 }
 
 MainWindow::~MainWindow()
@@ -95,7 +85,7 @@ bool cmpNode(Node a,Node b)//Node的比较函数
     return a.times>b.times;
 }
 
-bool MainWindow::ok(int r,int c,int h,int l)
+bool MainWindow::ok(int r,int c,int h,int l)//左上角放在gird(r,c)且规模为h*l的单词能否放下
 {
     for(int i=0;i<h;i++)
         for(int j=0;j<l;j++)
@@ -103,7 +93,7 @@ bool MainWindow::ok(int r,int c,int h,int l)
                 return false;
     return true;
 }
-void MainWindow::set(int r, int c, int h, int l)
+void MainWindow::set(int r, int c, int h, int l)//修改fill
 {
     for(int i=0;i<h;i++)
         for(int j=0;j<l;j++)
@@ -152,71 +142,39 @@ void MainWindow::openFile()
                 p->second++;
             l=r;
         }
-        /*QGridLayout *gl=new QGridLayout();
-        QLabel *label[10];
-        for(int i=0;i<10;i++)
-           {
-            label[i]=new QLabel("Applicable");
-            gl->addWidget(label[i],i,i,1,1);
-
-        }
-        rightW->setLayout(gl);*/
-        QGridLayout *g=new QGridLayout();
-        //g->addWidget();
-        Node node;//将（单词，词频）保存
+        Node node;//将（单词，词频）保存到v中
         for(p=mp.begin();p!=mp.end();p++)
         {
             qDebug()<<p->first<<p->second;
-            //if(p->second<2)
-                //continue;
             node.word=p->first;
             node.times=p->second;
             v.push_back(node);
-            /*QLabel *l=new QLabel("%",this->rightW);
-            l->setGeometry(20,20,50,10);
-            l->show();*/
         }
-       /* QLabel *test0=new QLabel("0");
-        g->addWidget(test0);
-        QLabel *test1=new QLabel("1");
-        g->addWidget(test1);
-        QLabel *test2=new QLabel("2");
-        g->addWidget(test2);
-        QLabel *test3=new QLabel("3");
-        g->addWidget(test3);
-        QLabel *test4=new QLabel("4");
-        g->addWidget(test4);*/
-        //sort(v.begin(),v.end(),cmpNode);//按词频降序排序并保存到v中
-        for(int i=0;i<v.size();i++)
+        //按词频降序排序
+        //sort(v.begin(),v.end(),cmpNode);
+        for(int i=0;i<v.size();i++)//遍历所有的单词
         {
-            QPushButton *label=new QPushButton(v[i].word,rightW);
-            //<<label->width()<<label->height();
-            QFont *font=new QFont("Courier",v[i].times*10);
-            label->setFont(*font);
-            label->setFixedSize(v[i].times*v[i].word.size()*10,v[i].times*15);
-            //label->set
-            //l->show();
-            bool flag=true;
-            for(int j=0;j+v[i].times<R&&flag;j++)
-                for(int ll=0;ll+v[i].times*v[i].word.size()<C;ll++)
+            QLabel *label=new QLabel(v[i].word,rightW);//以当前单词新建一个label，并指定其父组件为rightW
+            QFont *font=new QFont("Courier",v[i].times*10);//新建一个与当前单词的频率所对应的font
+            label->setFont(*font);//设置字体
+            //label->setMaximumSize(v[i].times*v[i].word.size()*10,v[i].times*15);
+            bool flag=true;//当前label待放入gridlayout
+            for(int j=0;j+v[i].times<R&&flag;j++)//遍历grid的每一行
+                for(int ll=0;ll+v[i].times*v[i].word.size()<C;ll++)//遍历grid的每一列
                 {
-                    if(ok(j,ll,v[i].times,v[i].times*v[i].word.size()))
+                    if(ok(j,ll,v[i].times,v[i].times*v[i].word.size()))//当前位置可以放入
                     {qDebug()<<v[i].times<<v[i].word<<j<<ll;
-                        set(j,ll,v[i].times,v[i].times*v[i].word.size());
-                        //g->addWidget();
-                        g->addWidget(label,j,ll,v[i].times,v[i].times*v[i].word.size());
-                        //qDebug()<<label->width()<<label->height();,Qt::AlignTop|Qt::AlignRight
-                        flag=false;
-                        break;
+                        set(j,ll,v[i].times,v[i].times*v[i].word.size());//设置标记数组
+                        g->addWidget(label,j,ll,v[i].times,v[i].times*v[i].word.size(),Qt::AlignAbsolute);//放置标签
+                        //qDebug()<<label->width()<<label->height();,Qt::AlignTop|Qt::AlignRight,Qt::AlignAbsolute,Qt::AlignHCenter
+                        flag=false;//已放置
+                        break;//跳出内层循环
                     }
                 }
             qDebug()<<label->width()<<label->height();
-            //g->addWidget(label,i,i,1,1);
-            //g->addWidget(l,);
-//            l->setGeometry(20+i*50,20+i*10,100,100);
-//            l->show();
         }
-        g->setVerticalSpacing(0);
+        g->setVerticalSpacing(0);//设置垂直间距
+        //g->setHorizontalSpacing(0);
         rightW->setLayout(g);
         qDebug()<<v.size();
         file.close();
