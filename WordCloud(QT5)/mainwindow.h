@@ -39,7 +39,8 @@ private:
     map<QString,int> mp;
     vector<Node> v;
     set<QString> st;
-    bool fill[100][100];
+    const static int R=400,C=100;
+    bool fill[R][C];
     bool ok(int r,int c,int h,int l);
     void set(int r,int c,int h,int l);
 };

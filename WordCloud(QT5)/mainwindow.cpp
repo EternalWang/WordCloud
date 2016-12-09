@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     textEdit = new QTextEdit();
     textEdit->setMinimumSize(400,600);
     rightW = new QWidget();
-    rightW->setMinimumSize(800,600);
+    rightW->setMinimumSize(1000,600);
     layout=new QHBoxLayout;
     layout->addWidget(textEdit);
     layout->addWidget(rightW);
@@ -69,16 +69,16 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("Will");
     st.insert("An");
     memset(fill,0,sizeof(fill));
-    QLabel *test0=new QLabel("test0",rightW);
-    QFont *font0=new QFont("Courier",200);
+    /*QLabel *test0=new QLabel("t",rightW);
+    QFont *font0=new QFont("Courier",400);
     //fontt->setPixelSize(400);
     //QFont f()
-    test0->setFont(*font0);
+    test0->setFont(*font0);*/
     //test->resize(100,30);
-    QLabel *test1=new QLabel("test1",rightW);
+    /*QLabel *test1=new QLabel("test1",rightW);
     QFont *font1=new QFont("Courier",100);
     test1->setFont(*font1);
-    //qDebug()<<test->size();
+    //qDebug()<<test->size();*/
 }
 
 MainWindow::~MainWindow()
@@ -99,7 +99,7 @@ bool MainWindow::ok(int r,int c,int h,int l)
 {
     for(int i=0;i<h;i++)
         for(int j=0;j<l;j++)
-            if(fill[r+h][c+l])
+            if(fill[r+i][c+j])
                 return false;
     return true;
 }
@@ -107,7 +107,7 @@ void MainWindow::set(int r, int c, int h, int l)
 {
     for(int i=0;i<h;i++)
         for(int j=0;j<l;j++)
-            fill[r+h][c+l]=true;
+            fill[r+i][c+j]=true;
 }
 
 void MainWindow::openFile()
@@ -167,6 +167,8 @@ void MainWindow::openFile()
         for(p=mp.begin();p!=mp.end();p++)
         {
             qDebug()<<p->first<<p->second;
+            //if(p->second<2)
+                //continue;
             node.word=p->first;
             node.times=p->second;
             v.push_back(node);
@@ -184,23 +186,26 @@ void MainWindow::openFile()
         g->addWidget(test3);
         QLabel *test4=new QLabel("4");
         g->addWidget(test4);*/
-        sort(v.begin(),v.end(),cmpNode);//按词频降序排序并保存到v中
-        for(int i=0;i<50;i++)
+        //sort(v.begin(),v.end(),cmpNode);//按词频降序排序并保存到v中
+        for(int i=0;i<v.size();i++)
         {
-            QLabel *label=new QLabel(v[i].word,rightW);
-            qDebug()<<v[i].times<<v[i].word;//<<label->width()<<label->height();
+            QPushButton *label=new QPushButton(v[i].word,rightW);
+            //<<label->width()<<label->height();
             QFont *font=new QFont("Courier",v[i].times*10);
             label->setFont(*font);
+            label->setFixedSize(v[i].times*v[i].word.size()*10,v[i].times*15);
+            //label->set
             //l->show();
             bool flag=true;
-            for(int j=0;j<10&&flag;j++)
-                for(int ll=0;ll<10;ll++)
+            for(int j=0;j+v[i].times<R&&flag;j++)
+                for(int ll=0;ll+v[i].times*v[i].word.size()<C;ll++)
                 {
-                    if(ok(j,ll,v[i].times,v[i].times))
-                    {
-                        set(j,ll,v[i].times,v[i].times);
-                        g->addWidget(label,j,ll,v[i].times,v[i].times);
-                        //qDebug()<<label->width()<<label->height();
+                    if(ok(j,ll,v[i].times,v[i].times*v[i].word.size()))
+                    {qDebug()<<v[i].times<<v[i].word<<j<<ll;
+                        set(j,ll,v[i].times,v[i].times*v[i].word.size());
+                        //g->addWidget();
+                        g->addWidget(label,j,ll,v[i].times,v[i].times*v[i].word.size());
+                        //qDebug()<<label->width()<<label->height();,Qt::AlignTop|Qt::AlignRight
                         flag=false;
                         break;
                     }
@@ -211,6 +216,7 @@ void MainWindow::openFile()
 //            l->setGeometry(20+i*50,20+i*10,100,100);
 //            l->show();
         }
+        g->setVerticalSpacing(0);
         rightW->setLayout(g);
         qDebug()<<v.size();
         file.close();
