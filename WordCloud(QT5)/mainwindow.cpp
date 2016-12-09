@@ -30,9 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     centralW=new QWidget(this);
     textEdit = new QTextEdit();
-    textEdit->setMinimumSize(400,400);
+    textEdit->setMinimumSize(400,600);
     rightW = new QWidget();
-    rightW->setMinimumSize(800,500);
+    rightW->setMinimumSize(800,600);
     layout=new QHBoxLayout;
     layout->addWidget(textEdit);
     layout->addWidget(rightW);
@@ -69,7 +69,16 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("Will");
     st.insert("An");
     memset(fill,0,sizeof(fill));
-
+    QLabel *test0=new QLabel("test0",rightW);
+    QFont *font0=new QFont("Courier",200);
+    //fontt->setPixelSize(400);
+    //QFont f()
+    test0->setFont(*font0);
+    //test->resize(100,30);
+    QLabel *test1=new QLabel("test1",rightW);
+    QFont *font1=new QFont("Courier",100);
+    test1->setFont(*font1);
+    //qDebug()<<test->size();
 }
 
 MainWindow::~MainWindow()
@@ -117,6 +126,7 @@ void MainWindow::openFile()
         textEdit->setText(s=in.readAll());
         QString tmp;
         int l,r;//指示单词范围的左右指针
+        qDebug()<<rightW->width()<<rightW->height();
         for(l=r=0;r<s.size()&&l<s.size();)//切词并统计词频
         {
             while(l<s.size()&&!judge(s[l]))
@@ -174,11 +184,13 @@ void MainWindow::openFile()
         g->addWidget(test3);
         QLabel *test4=new QLabel("4");
         g->addWidget(test4);*/
-        //sort(v.begin(),v.end(),cmpNode);//按词频降序排序并保存到v中
+        sort(v.begin(),v.end(),cmpNode);//按词频降序排序并保存到v中
         for(int i=0;i<50;i++)
         {
-            qDebug()<<v[i].times<<v[i].word;
-            QLabel *label=new QLabel(v[i].word);
+            QLabel *label=new QLabel(v[i].word,rightW);
+            qDebug()<<v[i].times<<v[i].word;//<<label->width()<<label->height();
+            QFont *font=new QFont("Courier",v[i].times*10);
+            label->setFont(*font);
             //l->show();
             bool flag=true;
             for(int j=0;j<10&&flag;j++)
@@ -188,10 +200,12 @@ void MainWindow::openFile()
                     {
                         set(j,ll,v[i].times,v[i].times);
                         g->addWidget(label,j,ll,v[i].times,v[i].times);
+                        //qDebug()<<label->width()<<label->height();
                         flag=false;
                         break;
                     }
                 }
+            qDebug()<<label->width()<<label->height();
             //g->addWidget(label,i,i,1,1);
             //g->addWidget(l,);
 //            l->setGeometry(20+i*50,20+i*10,100,100);
