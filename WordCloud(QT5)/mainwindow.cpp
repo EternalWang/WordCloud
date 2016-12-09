@@ -10,6 +10,11 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
+    //背景颜色
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background, Qt::black);
+    this->setPalette(palette);
+    //背景颜色
     openAction = new QAction(QIcon(":/images/file-open"), tr("&Open..."), this);
     openAction->setShortcuts(QKeySequence::Open);
     openAction->setStatusTip(tr("Open an existing file"));
@@ -126,6 +131,30 @@ void MainWindow::openFile()
         textEdit->setText(s=in.readAll());
         QString tmp;
         int l,r;//指示单词范围的左右指针
+        for(int i=0;i<22;i++)
+        {
+            if(i%5==0)
+            {
+                label[i]->setStyleSheet("color:#FF0000;""font:bold;");
+            }
+            else if(i%5==1)
+            {
+                label[i]->setStyleSheet("color:#7cfc00;""font:bold;");
+            }
+            else if(i%5==2)
+            {
+                label[i]->setStyleSheet("color:#0000FF;""font:bold;");
+            }
+            else if(i%5==3)
+            {
+                label[i]->setStyleSheet("color:##FFFF00;""font:bold;");
+            }
+            else
+            {
+                label[i]->setStyleSheet("color:#C0C0C0;""font:bold;");
+            }
+        }
+        //配色
         qDebug()<<rightW->width()<<rightW->height();
         for(l=r=0;r<s.size()&&l<s.size();)//切词并统计词频
         {
