@@ -39,10 +39,11 @@ private:
     map<QString,int> mp;
     vector<Node> v;
     set<QString> st;
-    const static int R=400,C=100;
-    bool fill[R][C];
-    bool ok(int r,int c,int h,int l);
-    void set(int r,int c,int h,int l);
+    const static int R=100,C=100;//GridLayout的规模
+    bool fill[R][C];//保存每一块是否被占用
+    bool ok(int r,int c,int h,int l);//判断左上角放在gird(r,c)且规模为h*l的单词能否放下
+    void set(int r,int c,int h,int l);//修改fill
+    QGridLayout *g;
 };
 
 #endif // MAINWINDOW_H
