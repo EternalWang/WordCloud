@@ -4,6 +4,8 @@
 #include<QLabel>
 #include<QDebug>
 #include<algorithm>
+#include<QGridLayout>
+#include<cstring>
 #define k(a,b) int a##b;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -30,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     textEdit = new QTextEdit();
     textEdit->setMinimumSize(400,400);
     rightW = new QWidget();
-    rightW->setMinimumSize(400,400);
+    rightW->setMinimumSize(800,500);
     layout=new QHBoxLayout;
     layout->addWidget(textEdit);
     layout->addWidget(rightW);
@@ -66,6 +68,8 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("You");
     st.insert("Will");
     st.insert("An");
+    memset(fill,0,sizeof(fill));
+
 }
 
 MainWindow::~MainWindow()
@@ -82,6 +86,20 @@ bool cmpNode(Node a,Node b)//Node的比较函数
     return a.times>b.times;
 }
 
+bool MainWindow::ok(int r,int c,int h,int l)
+{
+    for(int i=0;i<h;i++)
+        for(int j=0;j<l;j++)
+            if(fill[r+h][c+l])
+                return false;
+    return true;
+}
+void MainWindow::set(int r, int c, int h, int l)
+{
+    for(int i=0;i<h;i++)
+        for(int j=0;j<l;j++)
+            fill[r+h][c+l]=true;
+}
 
 void MainWindow::openFile()
 {
@@ -124,7 +142,17 @@ void MainWindow::openFile()
                 p->second++;
             l=r;
         }
+        /*QGridLayout *gl=new QGridLayout();
+        QLabel *label[10];
+        for(int i=0;i<10;i++)
+           {
+            label[i]=new QLabel("Applicable");
+            gl->addWidget(label[i],i,i,1,1);
 
+        }
+        rightW->setLayout(gl);*/
+        QGridLayout *g=new QGridLayout();
+        //g->addWidget();
         Node node;//将（单词，词频）保存
         for(p=mp.begin();p!=mp.end();p++)
         {
@@ -136,15 +164,41 @@ void MainWindow::openFile()
             l->setGeometry(20,20,50,10);
             l->show();*/
         }
-        sort(v.begin(),v.end(),cmpNode);//按词频降序排序并保存到v中
-        for(int i=0;i<v.size();i++)
+       /* QLabel *test0=new QLabel("0");
+        g->addWidget(test0);
+        QLabel *test1=new QLabel("1");
+        g->addWidget(test1);
+        QLabel *test2=new QLabel("2");
+        g->addWidget(test2);
+        QLabel *test3=new QLabel("3");
+        g->addWidget(test3);
+        QLabel *test4=new QLabel("4");
+        g->addWidget(test4);*/
+        //sort(v.begin(),v.end(),cmpNode);//按词频降序排序并保存到v中
+        for(int i=0;i<50;i++)
         {
             qDebug()<<v[i].times<<v[i].word;
-            QLabel *l=new QLabel(v[i].word,this->rightW);
-            l->setGeometry(20+i*50,20+i*10,100,100);
-            l->show();
+            QLabel *label=new QLabel(v[i].word);
+            //l->show();
+            bool flag=true;
+            for(int j=0;j<10&&flag;j++)
+                for(int ll=0;ll<10;ll++)
+                {
+                    if(ok(j,ll,v[i].times,v[i].times))
+                    {
+                        set(j,ll,v[i].times,v[i].times);
+                        g->addWidget(label,j,ll,v[i].times,v[i].times);
+                        flag=false;
+                        break;
+                    }
+                }
+            //g->addWidget(label,i,i,1,1);
+            //g->addWidget(l,);
+//            l->setGeometry(20+i*50,20+i*10,100,100);
+//            l->show();
         }
-
+        rightW->setLayout(g);
+        qDebug()<<v.size();
         file.close();
     } else {
         QMessageBox::warning(this, tr("Path"), tr("You did not select any file."));

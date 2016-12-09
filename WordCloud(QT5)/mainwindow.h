@@ -39,6 +39,9 @@ private:
     map<QString,int> mp;
     vector<Node> v;
     set<QString> st;
+    bool fill[100][100];
+    bool ok(int r,int c,int h,int l);
+    void set(int r,int c,int h,int l);
 };
 
 #endif // MAINWINDOW_H
