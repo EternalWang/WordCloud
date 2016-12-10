@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::black);
     this->setPalette(palette);
+
     //背景颜色
     openAction = new QAction(QIcon(":/images/file-open"), tr("&Open..."), this);
     openAction->setShortcuts(QKeySequence::Open);
@@ -42,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent) :
     layout->addWidget(rightW);
     //MainWind中间部件（CentralWidget）设置为centralW，centralW左边为textEdit，右边为rightW。
     centralW->setLayout(layout);
+    centralW->setMaximumHeight(1000);
+    this->setMaximumHeight(1000);
     setCentralWidget(centralW);
 
     st.insert("The");
@@ -72,8 +75,7 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("You");
     st.insert("Will");
     st.insert("An");
-    memset(fill,0,sizeof(fill));
-    g=new QGridLayout();
+
 }
 
 MainWindow::~MainWindow()
@@ -107,6 +109,9 @@ void MainWindow::set(int r, int c, int h, int l)//修改fill
 
 void MainWindow::openFile()
 {
+    memset(fill,0,sizeof(fill));
+    vl.clear();
+    QGridLayout *g=new QGridLayout();
     QString path = QFileDialog::getOpenFileName(this, tr("Open File"), ".", tr("Text Files(*.txt)"));
     if(!path.isEmpty()) {
         QFile file(path);
@@ -121,31 +126,8 @@ void MainWindow::openFile()
         textEdit->setText(s=in.readAll());
         QString tmp;
         int l,r;//指示单词范围的左右指针
-        for(int i=0;i<22;i++)
-        {
-            if(i%5==0)
-            {
-                label[i]->setStyleSheet("color:#FF0000;""font:bold;");
-            }
-            else if(i%5==1)
-            {
-                label[i]->setStyleSheet("color:#7cfc00;""font:bold;");
-            }
-            else if(i%5==2)
-            {
-                label[i]->setStyleSheet("color:#0000FF;""font:bold;");
-            }
-            else if(i%5==3)
-            {
-                label[i]->setStyleSheet("color:##FFFF00;""font:bold;");
-            }
-            else
-            {
-                label[i]->setStyleSheet("color:#C0C0C0;""font:bold;");
-            }
-        }
         //配色
-        qDebug()<<rightW->width()<<rightW->height();
+        //qDebug()<<rightW->width()<<rightW->height();
         for(l=r=0;r<s.size()&&l<s.size();)//切词并统计词频
         {
             while(l<s.size()&&!judge(s[l]))
@@ -183,29 +165,57 @@ void MainWindow::openFile()
         //sort(v.begin(),v.end(),cmpNode);
         for(int i=0;i<v.size();i++)//遍历所有的单词
         {
-            QLabel *label=new QLabel(v[i].word,rightW);//以当前单词新建一个label，并指定其父组件为rightW
+            QLabel *label=new QLabel(v[i].word);//以当前单词新建一个label，并指定其父组件为rightW
             QFont *font=new QFont("Courier",v[i].times*10);//新建一个与当前单词的频率所对应的font
             label->setFont(*font);//设置字体
-            //label->setMaximumSize(v[i].times*v[i].word.size()*10,v[i].times*15);
             bool flag=true;//当前label待放入gridlayout
             for(int j=0;j+v[i].times<R&&flag;j++)//遍历grid的每一行
                 for(int ll=0;ll+v[i].times*v[i].word.size()<C;ll++)//遍历grid的每一列
                 {
                     if(ok(j,ll,v[i].times,v[i].times*v[i].word.size()))//当前位置可以放入
                     {qDebug()<<v[i].times<<v[i].word<<j<<ll;
+                        vl.push_back(label);
                         set(j,ll,v[i].times,v[i].times*v[i].word.size());//设置标记数组
-                        g->addWidget(label,j,ll,v[i].times,v[i].times*v[i].word.size(),Qt::AlignAbsolute);//放置标签
+                        g->addWidget(vl[vl.size()-1],j,ll,v[i].times,v[i].times*v[i].word.size(),Qt::AlignAbsolute);//放置标签
                         //qDebug()<<label->width()<<label->height();,Qt::AlignTop|Qt::AlignRight,Qt::AlignAbsolute,Qt::AlignHCenter
                         flag=false;//已放置
                         break;//跳出内层循环
                     }
                 }
-            qDebug()<<label->width()<<label->height();
+            //qDebug()<<label->width()<<label->height();
+        }
+        for(int i=0;i<vl.size();i++)
+        {
+            if(i%5==0)
+            {
+                vl[i]->setStyleSheet("color:#FF0000;""font:bold;");
+            }
+            else if(i%5==1)
+            {
+                vl[i]->setStyleSheet("color:#7cfc00;""font:bold;");
+            }
+            else if(i%5==2)
+            {
+                vl[i]->setStyleSheet("color:#0000FF;""font:bold;");
+            }
+            else if(i%5==3)
+            {
+                vl[i]->setStyleSheet("color:#FFFF00;""font:bold;");
+            }
+            else
+            {
+                vl[i]->setStyleSheet("color:#C0C0C0;""font:bold;");
+            }
         }
         g->setVerticalSpacing(0);//设置垂直间距
-        //g->setHorizontalSpacing(0);
+        delete(rightW);
+        rightW=new QWidget();
+        layout->addWidget(rightW);
         rightW->setLayout(g);
-        qDebug()<<v.size();
+        QSizePolicy spr=rightW->sizePolicy();
+        spr.setVerticalPolicy(QSizePolicy::Maximum);
+        rightW->setSizePolicy(spr);
+        qDebug()<<centralW->size()<<rightW->size()<<textEdit->size();
         file.close();
     } else {
         QMessageBox::warning(this, tr("Path"), tr("You did not select any file."));
