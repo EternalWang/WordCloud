@@ -181,6 +181,9 @@ void MainWindow::openFile()
                 p->second++;
             l=r;
         }
+
+
+
         /*QGridLayout *gl=new QGridLayout();
         QLabel *label[10];
         for(int i=0;i<10;i++)
@@ -239,6 +242,37 @@ void MainWindow::openFile()
                         break;
                     }
                 }
+            QLabel *label2=new QLabel("  ");
+            QFont font1=label2->font();
+            font1.setPointSize(10);
+            label2->setFont(font1);
+            //Label的手工摆放
+            g->addWidget(label2,19,19,20,20);
+            g->addWidget(label[0],11,6,7,10);//stimulation
+            g->addWidget(label[1],8,9,5,6);//cloth
+            g->addWidget(label[2],18,5,3,6);//virtual
+            g->addWidget(label[3],16,10,4,5);//Garment
+            g->addWidget(label[4],8,5,5,4);//Design
+            g->addWidget(label[5],7,13,3,3);//sewing
+            g->addWidget(label[6],16,14,4,3);//clothing
+            g->addWidget(label[7],5,9,3,2);//try
+            g->addWidget(label[8],5,10,7,4);//Ellipsoid
+            g->addWidget(label[9],10,13,2,3);//scheme
+            g->addWidget(label[10],11,8,2,3);//some
+            g->addWidget(label[11],5,13,2,3);//human
+            g->addWidget(label[12],8,8,2,2);//models
+            g->addWidget(label[13],15,8,5,4);//system
+            g->addWidget(label[14],17,7,2,2);//have
+            g->addWidget(label[15],12,14,1,2);//new
+            g->addWidget(label[16],5,11,2,2);//D
+            g->addWidget(label[17],5,7,3,2);//proposed
+            g->addWidget(label[18],6,14,3,2);//complex
+            g->addWidget(label[19],19,12,2,2);//pattern
+            g->addWidget(label[20],6,11,2,2);//patterns
+            g->addWidget(label[21],14,15,3,3);//been
+            //手工摆放结束
+
+
             qDebug()<<label->width()<<label->height();
             //g->addWidget(label,i,i,1,1);
             //g->addWidget(l,);
