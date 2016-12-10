@@ -106,9 +106,64 @@ void MainWindow::set(int r, int c, int h, int l)//修改fill
         for(int j=0;j<l;j++)
             fill[r+i][c+j]=true;
 }
+void MainWindow::changeColor()
+{
+    QPalette pe;
+    pe.setColor(QPalette::WindowText,Qt::white);
+    //vl[id]->setPalette(pe);
+    if(id%11==0)
+    {
+        vl[id]->setStyleSheet("color:#568DFB;""font:bold;");
+    }
+    else if(id%11==1)
+    {
+        vl[id]->setStyleSheet("color:#EB757B;""font:bold;");
+    }
+    else if(id%11==2)
+    {
+        vl[id]->setStyleSheet("color:#A5EA25;""font:bold;");
+    }
+    else if(id%11==3)
+    {
+        vl[id]->setStyleSheet("color:#4FC8E3;""font:bold;");
+    }
+    else if(id%11==4)
+    {
+        vl[id]->setStyleSheet("color:#FE2FDF;""font:bold;");
+    }
+    else if(id%11==5)
+    {
+        vl[id]->setStyleSheet("color:#BECEFF;""font:bold;");
+    }
+    else if(id%11==6)
+    {
+        vl[id]->setStyleSheet("color:#FACE1F;""font:bold;");
+    }
+    else if(id%11==7)
+    {
+        vl[id]->setStyleSheet("color:#25DFBD;""font:bold;");
+    }
+    else if(id%11==8)
+    {
+        vl[id]->setStyleSheet("color:#B3ED8D;""font:bold;");
+    }
+    else if(id%11==9)
+    {
+        vl[id]->setStyleSheet("color:#80ED5F;""font:bold;");
+    }
+    else
+    {
+        vl[id]->setStyleSheet("color:#C8E4FA;""font:bold;");
+    }
+
+    id++;
+    if(id==vl.size())
+        timer->stop();
+}
 
 void MainWindow::openFile()
 {
+    id=0;
     /*QLabel *label2=new QLabel("  ");
     QFont font1=label2->font();
     font1.setPointSize(10);
@@ -182,6 +237,13 @@ void MainWindow::openFile()
                 p->second++;
             l=r;
         }
+
+/*        Node node;
+        for(p=mp.begin();p!=mp.end();p++)
+        {
+            node.times=p->second;
+                node.lb=;
+        }*/
         Node node;//将（单词，词频）保存到v中
         for(p=mp.begin();p!=mp.end();p++)
         {
@@ -195,6 +257,7 @@ void MainWindow::openFile()
         for(int i=0;i<v.size();i++)//遍历所有的单词
         {
             QLabel *label=new QLabel(v[i].word);//以当前单词新建一个label，并指定其父组件为rightW
+            label->setStyleSheet("color:#000000;""font:bold;");
             QFont *font=new QFont("Courier",v[i].times*10);//新建一个与当前单词的频率所对应的font
             label->setFont(*font);//设置字体
             bool flag=true;//当前label待放入gridlayout
@@ -205,7 +268,7 @@ void MainWindow::openFile()
                     {qDebug()<<v[i].times<<v[i].word<<j<<ll;
                         vl.push_back(label);
                         set(j,ll,v[i].times,v[i].times*v[i].word.size());//设置标记数组
-                        g->addWidget(vl[vl.size()-1],j,ll,v[i].times,v[i].times*v[i].word.size(),Qt::AlignAbsolute);//放置标签
+                        g->addWidget(label,j,ll,v[i].times,v[i].times*v[i].word.size(),Qt::AlignAbsolute);//放置标签
                         //qDebug()<<label->width()<<label->height();,Qt::AlignTop|Qt::AlignRight,Qt::AlignAbsolute,Qt::AlignHCenter
                         flag=false;//已放置
                         break;//跳出内层循环
@@ -213,29 +276,7 @@ void MainWindow::openFile()
                 }
             //qDebug()<<label->width()<<label->height();
         }
-        for(int i=0;i<vl.size();i++)
-        {
-            if(i%5==0)
-            {
-                vl[i]->setStyleSheet("color:#FF0000;""font:bold;");
-            }
-            else if(i%5==1)
-            {
-                vl[i]->setStyleSheet("color:#7cfc00;""font:bold;");
-            }
-            else if(i%5==2)
-            {
-                vl[i]->setStyleSheet("color:#0000FF;""font:bold;");
-            }
-            else if(i%5==3)
-            {
-                vl[i]->setStyleSheet("color:#FFFF00;""font:bold;");
-            }
-            else
-            {
-                vl[i]->setStyleSheet("color:#C0C0C0;""font:bold;");
-            }
-        }
+        //vl(vl.begin(),vl.end(),vl.begin());
         g->setVerticalSpacing(0);//设置垂直间距
         delete(rightW);
         rightW=new QWidget();
@@ -244,8 +285,12 @@ void MainWindow::openFile()
         QSizePolicy spr=rightW->sizePolicy();
         spr.setVerticalPolicy(QSizePolicy::Maximum);
         rightW->setSizePolicy(spr);
-        qDebug()<<centralW->size()<<rightW->size()<<textEdit->size();
+        qDebug()<<vl.size();
         file.close();
+        timer=new QTimer();
+        timer->setInterval(5000/vl.size());
+        timer->start();
+        connect(timer,SIGNAL(timeout()),this,SLOT(changeColor()));
     } else {
         QMessageBox::warning(this, tr("Path"), tr("You did not select any file."));
     }

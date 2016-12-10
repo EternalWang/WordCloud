@@ -45,6 +45,11 @@ private:
     bool fill[R][C];//保存每一块是否被占用
     bool ok(int r,int c,int h,int l);//判断左上角放在gird(r,c)且规模为h*l的单词能否放下
     void set(int r,int c,int h,int l);//修改fill
+    int id;
+    QTimer *timer;
+
+private slots:
+    void changeColor();
     //QGridLayout *g;
 };
 
