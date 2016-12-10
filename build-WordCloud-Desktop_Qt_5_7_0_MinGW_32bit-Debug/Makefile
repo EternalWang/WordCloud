@@ -182,7 +182,6 @@ Makefile: ../WordCloud(QT5)/WordCloud.pro ../../../../Qt/5.7/mingw53_32/mkspecs/
 		../../../../Qt/5.7/mingw53_32/mkspecs/features/win32/qt_config.prf \
 		../../../../Qt/5.7/mingw53_32/mkspecs/win32-g++/qmake.conf \
 		../../../../Qt/5.7/mingw53_32/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		../../../../Qt/5.7/mingw53_32/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/5.7/mingw53_32/mkspecs/features/default_pre.prf \
 		../../../../Qt/5.7/mingw53_32/mkspecs/features/win32/default_pre.prf \
@@ -333,7 +332,6 @@ Makefile: ../WordCloud(QT5)/WordCloud.pro ../../../../Qt/5.7/mingw53_32/mkspecs/
 ../../../../Qt/5.7/mingw53_32/mkspecs/features/win32/qt_config.prf:
 ../../../../Qt/5.7/mingw53_32/mkspecs/win32-g++/qmake.conf:
 ../../../../Qt/5.7/mingw53_32/mkspecs/features/spec_post.prf:
-.qmake.stash:
 ../../../../Qt/5.7/mingw53_32/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/5.7/mingw53_32/mkspecs/features/default_pre.prf:
 ../../../../Qt/5.7/mingw53_32/mkspecs/features/win32/default_pre.prf:

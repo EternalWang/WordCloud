@@ -7,10 +7,11 @@
 #include<vector>
 #include<set>
 #include<QLabel>
+#include "label.h"
 using namespace std;
 struct Node
 {
-    QLabel* lb;
+    Label* lb;
     int times;
 };
 
