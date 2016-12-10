@@ -6,6 +6,8 @@
 #include<algorithm>
 #include<QGridLayout>
 #include<cstring>
+#include "label.h"
+#include "mysyntaxhighlighter.h"
 #define k(a,b) int a##b;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -238,7 +240,9 @@ void MainWindow::openFile()
         for(p=mp.begin();p!=mp.end();p++)
         {
             node.times=p->second;
-            QLabel *label=new QLabel(p->first);
+            Label *label=new Label(p->first,textEdit,rightW);
+            label->words = p->first;
+            label->times = p->second;
             node.lb=label;
             label->setStyleSheet("color:#000000;""font:bold;");
             QFont *font=new QFont("Courier",node.times*10);//新建一个与当前单词的频率所对应的font
