@@ -13,14 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    mainwindow.cpp \
-    label.cpp \
-    mysyntaxhighlighter.cpp
+    mainwindow.cpp
 
 HEADERS  += \
-    mainwindow.h \
-    label.h \
-    mysyntaxhighlighter.h
+    mainwindow.h
 
 RESOURCES += \
     resource.qrc
