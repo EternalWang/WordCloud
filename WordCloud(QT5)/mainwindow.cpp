@@ -108,56 +108,53 @@ void MainWindow::set(int r, int c, int h, int l)//修改fill
 }
 void MainWindow::changeColor()
 {
-    QPalette pe;
-    pe.setColor(QPalette::WindowText,Qt::white);
-    //vl[id]->setPalette(pe);
     if(id%11==0)
     {
-        vl[id]->setStyleSheet("color:#568DFB;""font:bold;");
+        v[id].lb->setStyleSheet("color:#568DFB;""font:bold;");
     }
     else if(id%11==1)
     {
-        vl[id]->setStyleSheet("color:#EB757B;""font:bold;");
+        v[id].lb->setStyleSheet("color:#EB757B;""font:bold;");
     }
     else if(id%11==2)
     {
-        vl[id]->setStyleSheet("color:#A5EA25;""font:bold;");
+        v[id].lb->setStyleSheet("color:#A5EA25;""font:bold;");
     }
     else if(id%11==3)
     {
-        vl[id]->setStyleSheet("color:#4FC8E3;""font:bold;");
+        v[id].lb->setStyleSheet("color:#4FC8E3;""font:bold;");
     }
     else if(id%11==4)
     {
-        vl[id]->setStyleSheet("color:#FE2FDF;""font:bold;");
+        v[id].lb->setStyleSheet("color:#FE2FDF;""font:bold;");
     }
     else if(id%11==5)
     {
-        vl[id]->setStyleSheet("color:#BECEFF;""font:bold;");
+        v[id].lb->setStyleSheet("color:#BECEFF;""font:bold;");
     }
     else if(id%11==6)
     {
-        vl[id]->setStyleSheet("color:#FACE1F;""font:bold;");
+        v[id].lb->setStyleSheet("color:#FACE1F;""font:bold;");
     }
     else if(id%11==7)
     {
-        vl[id]->setStyleSheet("color:#25DFBD;""font:bold;");
+        v[id].lb->setStyleSheet("color:#25DFBD;""font:bold;");
     }
     else if(id%11==8)
     {
-        vl[id]->setStyleSheet("color:#B3ED8D;""font:bold;");
+        v[id].lb->setStyleSheet("color:#B3ED8D;""font:bold;");
     }
     else if(id%11==9)
     {
-        vl[id]->setStyleSheet("color:#80ED5F;""font:bold;");
+        v[id].lb->setStyleSheet("color:#80ED5F;""font:bold;");
     }
     else
     {
-        vl[id]->setStyleSheet("color:#C8E4FA;""font:bold;");
+        v[id].lb->setStyleSheet("color:#C8E4FA;""font:bold;");
     }
 
     id++;
-    if(id==vl.size())
+    if(id==v.size())
         timer->stop();
 }
 
@@ -194,7 +191,6 @@ void MainWindow::openFile()
     g->addWidget(label[21],14,15,3,3);//been
     //手工摆放结束*/
     memset(fill,0,sizeof(fill));
-    vl.clear();
     QGridLayout *g=new QGridLayout();
     QString path = QFileDialog::getOpenFileName(this, tr("Open File"), ".", tr("Text Files(*.txt)"));
     if(!path.isEmpty()) {
@@ -238,13 +234,34 @@ void MainWindow::openFile()
             l=r;
         }
 
-/*        Node node;
+        Node node;
         for(p=mp.begin();p!=mp.end();p++)
         {
             node.times=p->second;
-                node.lb=;
-        }*/
-        Node node;//将（单词，词频）保存到v中
+            QLabel *label=new QLabel(p->first);
+            node.lb=label;
+            label->setStyleSheet("color:#000000;""font:bold;");
+            QFont *font=new QFont("Courier",node.times*10);//新建一个与当前单词的频率所对应的font
+            label->setFont(*font);//设置字体
+            bool flag=true;//当前label待放入gridlayout
+            for(int j=0;j+node.times<R&&flag;j++)//遍历grid的每一行
+                for(int ll=0;ll+node.times*p->first.size()<C;ll++)//遍历grid的每一列
+                {
+                    if(ok(j,ll,node.times,node.times*p->first.size()))//当前位置可以放入
+                    {//qDebug()<<v[i].times<<v[i].word<<j<<ll;
+                        v.push_back(node);
+                        set(j,ll,node.times,node.times*p->first.size());//设置标记数组
+                        g->addWidget(label,j,ll,node.times,node.times*p->first.size(),Qt::AlignAbsolute);//放置标签
+                        //qDebug()<<label->width()<<label->height();,Qt::AlignTop|Qt::AlignRight,Qt::AlignAbsolute,Qt::AlignHCenter
+                        flag=false;//已放置
+                        break;//跳出内层循环
+                    }
+                }
+            //qDebug()<<label->width()<<label->height();
+        }
+        sort(v.begin(),v.end(),cmpNode);
+
+/*        Node node;//将（单词，词频）保存到v中
         for(p=mp.begin();p!=mp.end();p++)
         {
             qDebug()<<p->first<<p->second;
@@ -275,8 +292,8 @@ void MainWindow::openFile()
                     }
                 }
             //qDebug()<<label->width()<<label->height();
-        }
-        //vl(vl.begin(),vl.end(),vl.begin());
+        }*/
+        /*vl(vl.begin(),vl.end(),vl.begin());*/
         g->setVerticalSpacing(0);//设置垂直间距
         delete(rightW);
         rightW=new QWidget();
@@ -285,10 +302,10 @@ void MainWindow::openFile()
         QSizePolicy spr=rightW->sizePolicy();
         spr.setVerticalPolicy(QSizePolicy::Maximum);
         rightW->setSizePolicy(spr);
-        qDebug()<<vl.size();
+        //qDebug()<<vl.size();
         file.close();
         timer=new QTimer();
-        timer->setInterval(5000/vl.size());
+        timer->setInterval(5000/v.size());
         timer->start();
         connect(timer,SIGNAL(timeout()),this,SLOT(changeColor()));
     } else {

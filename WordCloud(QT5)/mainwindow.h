@@ -10,7 +10,7 @@
 using namespace std;
 struct Node
 {
-    QString word;
+    QLabel* lb;
     int times;
 };
 
@@ -39,7 +39,7 @@ private:
     QHBoxLayout *layout;
     map<QString,int> mp;
     vector<Node> v;
-    vector<QLabel *> vl;
+    //vector<QLabel *> vl;
     set<QString> st;
     const static int R=100,C=100;//GridLayout的规模
     bool fill[R][C];//保存每一块是否被占用
