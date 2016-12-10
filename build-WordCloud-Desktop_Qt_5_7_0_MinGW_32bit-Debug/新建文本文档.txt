@@ -1,0 +1,36 @@
+In this paper, we propose a system that allows users to
+manipulate clothing patterns to desired positions of human
+models by four predefined operations of move, rotate, fix and
+drag. We adopt a physical-based modeling of clothing patterns
+that can stretch and bend due to shape changes of the body
+surface. It provides accurate pre-positioning that ensures very
+short distances of seam line particles before and after the sewing
+process. With the proposed method, we do not need to make any
+assumptions about the postures of the human models. Moreover,
+users are allowed to adjust patterns and garment positions during
+the virtual sewing process, which makes the trying on of complex
+styles with multiple seams possible. As aforementioned, our
+proposed systems are physical-based, and the reasons why realtime
+simulation is possible in our approach are twofold. First, a
+hierarchy of ellipsoid bounding volumes is used to approximate the
+human body, and this method bounds the human body tightly [7].
+The method also detects contacts/collisions between garment and
+the human model more efficiently. Second, our physical simulation
+is based on the StoermerVerlet numerical integration scheme that
+simplifies the collision responses by geometrical based correction
+of position. Our method is efficient and robust, enabling the trying
+on of different garment types. The proposed method is physically
+faithful because high-quality physical simulation is performed to
+visualize the drape effects once the garments are `tried on'.
+The rest of the paper is organized as follows. First, Section 2
+gives a retrospective view of past work in clothing simulation
+and clothing CAD. In Section 3 we briefly outline how our realtime
+system works. Then, the proposed method is explained in
+detail. Section 4 describes the method of volume segmentation and
+bounding volume computation for a human model. Section 5 is
+dedicated to a presentation of the collision detection and collision
+response with ellipsoids, and also the corresponding contact
+friction models. Next, Section 6 introduces the four types of user
+manipulation. The physical model of clothing and the numerical
+integration scheme are explained in Section 7 and, finally, the
+experimental results are given in Section 8.

@@ -12,7 +12,11 @@ TARGET = WordCloud
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwidget.cpp
+SOURCES += main.cpp \
+    mainwindow.cpp
 
-HEADERS  += mainwidget.h
+HEADERS  += \
+    mainwindow.h
+
+RESOURCES += \
+    resource.qrc
