@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../WordCloud(QT5)/mainwindow.h"
+#include "G:/QT/WordCloud-master/WordCloud(QT5)/mainwindow.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[5];
-    char stringdata0[42];
+    char stringdata0[39];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,10 +33,10 @@ QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 8), // "openFile"
 QT_MOC_LITERAL(2, 20, 0), // ""
 QT_MOC_LITERAL(3, 21, 8), // "saveFile"
-QT_MOC_LITERAL(4, 30, 11) // "changeColor"
+QT_MOC_LITERAL(4, 30, 8) // "findNext"
 
     },
-    "MainWindow\0openFile\0\0saveFile\0changeColor"
+    "MainWindow\0openFile\0\0saveFile\0findNext"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,7 +56,7 @@ static const uint qt_meta_data_MainWindow[] = {
  // slots: name, argc, parameters, tag, flags
        1,    0,   29,    2, 0x08 /* Private */,
        3,    0,   30,    2, 0x08 /* Private */,
-       4,    0,   31,    2, 0x08 /* Private */,
+       4,    0,   31,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -74,7 +74,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->openFile(); break;
         case 1: _t->saveFile(); break;
-        case 2: _t->changeColor(); break;
+        case 2: _t->findNext(); break;
         default: ;
         }
     }
