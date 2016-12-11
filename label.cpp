@@ -19,7 +19,7 @@ this->setCursor(Qt::PointingHandCursor);
 count=0;
 press=false;
 over=false;
-connect(this,SIGNAL(clicked()),this,SLOT(change_color()));
+//connect(this,SIGNAL(clicked()),this,SLOT(change_color()));
 textEdit = text;
 //highlighter = new MySyntaxHighlighter(textEdit->document());
 }
@@ -31,7 +31,7 @@ if(event->button()==Qt::LeftButton)
 //触发clicked信号
 count++;
 press=true;
-emit clicked();
+//emit clicked();
 }
 //将该事件传给父类处理
 QLabel::mousePressEvent(event);

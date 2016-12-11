@@ -377,13 +377,13 @@ void MainWindow::choose()
        dlg->show();
 }
 
-void MainWindow::changespeed()
+void MainWindow::changespeed()//选择速度
 {
     QString str_speed = lineEdit->text();
     bool ok = true;
     controll_speed = str_speed.toInt(&ok,10);
 }
-void MainWindow::changecolorscheme()
+void MainWindow::changecolorscheme()//选择颜色模式
 {
     QString str_color = lineEdit2->text();
     bool ok = true;
