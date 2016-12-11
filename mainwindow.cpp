@@ -22,13 +22,13 @@ MainWindow::MainWindow(QWidget *parent) :
     palette.setColor(QPalette::Background, Qt::black);
     this->setPalette(palette);
     //背景颜色--第二种方案
-    QPalette palette(this->palette());
+    /*QPalette palette(this->palette());
     palette.setColor(QPalette::Background, QColor::fromRgb(0,31,0));
     this->setPalette(palette);
     //背景颜色--第三种方案
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, QColor::fromRgb(255,224,224));
-    this->setPalette(palette);
+    this->setPalette(palette);*/
     //背景颜色
     openAction = new QAction(QIcon(":/images/file-open"), tr("&Open..."), this);
     openAction->setShortcuts(QKeySequence::Open);
