@@ -53,8 +53,8 @@ private:
     void set(int r,int c,int h,int l);//修改fill
     int id;
     QTimer *timer;
-    int controll_speed;
-        int controll_colorscheme;
+    int controll_speed = 5000;
+        int controll_colorscheme = 1;
 
     private slots:
         void changeColor();
