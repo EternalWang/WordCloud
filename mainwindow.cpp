@@ -292,7 +292,7 @@ void MainWindow::openFile()
             label->setStyleSheet("color:#000000;""font:bold;");
             //第二种方案
             else if(controll_colorscheme == 2)
-            label->setStyleSheet("color:#;""font:bold;");
+            label->setStyleSheet("color:#001f00;""font:bold;");
             //第三种方案
             else
             label->setStyleSheet("color:#ffe0e0;""font-blod;");qDebug()<<"d";
