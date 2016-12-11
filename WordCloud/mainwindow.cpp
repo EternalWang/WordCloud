@@ -16,11 +16,19 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-    //背景颜色
+    //到后根据对话框的选择，在这里加上判断就OK
+    //背景颜色--第一种方案
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::black);
     this->setPalette(palette);
-
+    //背景颜色--第二种方案
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background, QColor::fromRgb(0,31,0));
+    this->setPalette(palette);
+    //背景颜色--第三种方案
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background, QColor::fromRgb(255,224,224));
+    this->setPalette(palette);
     //背景颜色
     openAction = new QAction(QIcon(":/images/file-open"), tr("&Open..."), this);
     openAction->setShortcuts(QKeySequence::Open);
@@ -88,6 +96,25 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("You");
     st.insert("Will");
     st.insert("An");
+    st.insert("As");
+    st.insert("Do");
+    st.insert("By");
+    st.insert("Before");
+    st.insert("Between");
+    st.insert("How");
+    st.insert("On'");
+    st.insert("We");
+    st.insert("This");
+    st.insert("Then");
+    st.insert("Our");
+    st.insert("With");
+    st.insert("Or");
+    st.insert("Up");
+    st.insert("Only");
+    st.insert("Be");
+    st.insert("So");
+    st.insert("What");
+    st.insert("About");
 
 }
 
@@ -121,7 +148,10 @@ void MainWindow::set(int r, int c, int h, int l)//修改fill
 }
 void MainWindow::changeColor()
 {
-    if(id%11==0)
+    //这里改变字体的颜色是在原来生成的字体的颜色上改变的。
+    //所以生成label的时候的颜色必须和背景颜色一样，否则就会产生一种覆盖现象
+    //第一种方案
+    /*if(id%11==0)
     {
         v[id].lb->setStyleSheet("color:#568DFB;""font:bold;");
     }
@@ -164,6 +194,20 @@ void MainWindow::changeColor()
     else
     {
         v[id].lb->setStyleSheet("color:#C8E4FA;""font:bold;");
+    }
+
+    //第二种方案
+    if(id>=0)
+        v[id].lb->setStyleSheet("color:#f0f0c0;""font:bold;");
+    */
+    //第三种方案
+    if(id<=31)
+    {
+        v[id].lb->setStyleSheet("color:#f02222;""font:bold;""font-family:DFPPOP1W9-B5");
+    }
+    else
+    {
+        v[id].lb->setStyleSheet("color:#c09292;""font:bold;");
     }
 
     id++;
@@ -228,7 +272,12 @@ void MainWindow::openFile()
             label->words = p->first;
             label->times = p->second;
             node.lb=label;
-            label->setStyleSheet("color:#000000;""font:bold;");
+            //需要加上判断，若为第一种方案，为下面的选择,每个初始生成的Label都为背景色，这样才看不出来。
+            //label->setStyleSheet("color:#000000;""font:bold;");
+            //第二种方案
+            //label->setStyleSheet("color:#;""font:bold;");
+            //第三种方案
+            label->setStyleSheet("color:ffe0e0;""font-blod;");
             QFont *font=new QFont("Courier",node.times*10);//新建一个与当前单词的频率所对应的font
             label->setFont(*font);//设置字体
             bool flag=true;//当前label待放入gridlayout
