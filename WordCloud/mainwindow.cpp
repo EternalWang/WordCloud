@@ -88,7 +88,6 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("You");
     st.insert("Will");
     st.insert("An");
-    st.insert("We")
 
 }
 
