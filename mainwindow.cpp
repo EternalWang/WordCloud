@@ -279,7 +279,7 @@ void MainWindow::openFile()
             //第二种方案
             //label->setStyleSheet("color:#;""font:bold;");
             //第三种方案
-            label->setStyleSheet("color:ffe0e0;""font-blod;");
+            label->setStyleSheet("color:#ffe0e0;""font-blod;");qDebug()<<"d";
             QFont *font=new QFont("Courier",node.times*10);//新建一个与当前单词的频率所对应的font
             label->setFont(*font);//设置字体
             bool flag=true;//当前label待放入gridlayout
