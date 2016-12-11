@@ -73,6 +73,29 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("You");
     st.insert("Will");
     st.insert("An");
+    //增加的
+    st.insert("As");
+    st.insert("Do");
+    st.insert("By");
+    st.insert("Before");
+    st.insert("Between");
+    st.insert("How");
+    st.insert("On'");
+    st.insert("We");
+    st.insert("This");
+    st.insert("Then");
+    st.insert("Our");
+    st.insert("With");
+    st.insert("Or");
+    st.insert("Up");
+    st.insert("Only");
+    st.insert("Be");
+    st.insert("So");
+    st.insert("What");
+    st.insert("About");
+
+
+
     memset(fill,0,sizeof(fill));
     /*QLabel *test0=new QLabel("t",rightW);
     QFont *font0=new QFont("Courier",400);
