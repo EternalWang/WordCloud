@@ -22,7 +22,7 @@ public:
     bool press;
     signals:
     //自定义clicked()信号,在mousePressEvent事件发生时触发
-    void clicked();
+  //  void clicked();
     public slots:
     void change_color();
 

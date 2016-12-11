@@ -16,28 +16,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-    //到后根据对话框的选择，在这里加上判断就OK
-    //背景颜色--第一种方案
-    if(controll_colorscheme == 1)
-    {
-    QPalette palette(this->palette());
-    palette.setColor(QPalette::Background, Qt::black);
-    this->setPalette(palette);
-    }
-    else if(controll_colorscheme == 2)
-    //背景颜色--第二种方案
-    {
-    QPalette palette(this->palette());
-    palette.setColor(QPalette::Background, QColor::fromRgb(0,31,0));
-    this->setPalette(palette);
-    }
-    //背景颜色--第三种方案
-    else
-    {
-    QPalette palette(this->palette());
-    palette.setColor(QPalette::Background, QColor::fromRgb(255,224,224));
-    this->setPalette(palette);
-    }
+
     //背景颜色
     openAction = new QAction(QIcon(":/images/file-open"), tr("&Open..."), this);
     openAction->setShortcuts(QKeySequence::Open);
@@ -49,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     saveAction->setStatusTip(tr("Save a new file"));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(saveFile()));
 
-    chooseAction = new QAction(tr("choose"), this);
+    chooseAction = new QAction(QIcon(":/images/choose"), tr("choose"), this);
     //chooseAction->setShortcuts(QKeySequence::Save);
     chooseAction->setStatusTip(tr("choose"));
     connect(chooseAction, SIGNAL(triggered()), this, SLOT(choose()));
@@ -157,6 +136,28 @@ void MainWindow::set(int r, int c, int h, int l)//修改fill
 }
 void MainWindow::changeColor()
 {
+    //到后根据对话框的选择，在这里加上判断就OK
+    //背景颜色--第一种方案
+    if(controll_colorscheme == 1)
+    {
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background, Qt::black);
+    this->setPalette(palette);
+    }
+    else if(controll_colorscheme == 2)
+    //背景颜色--第二种方案
+    {
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background, QColor::fromRgb(0,31,0));
+    this->setPalette(palette);
+    }
+    //背景颜色--第三种方案
+    else
+    {
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background, QColor::fromRgb(255,224,224));
+    this->setPalette(palette);
+    }
     //这里改变字体的颜色是在原来生成的字体的颜色上改变的。
     //所以生成label的时候的颜色必须和背景颜色一样，否则就会产生一种覆盖现象
     //第一种方案
@@ -224,11 +225,10 @@ void MainWindow::changeColor()
     {
         v[id].lb->setStyleSheet("color:#c09292;""font:bold;");
     }
-
+}
     id++;
     if(id==v.size())
         timer->stop();
-}
 }
 void MainWindow::openFile()
 {
@@ -377,13 +377,13 @@ void MainWindow::choose()
        dlg->show();
 }
 
-void MainWindow::changespeed()
+void MainWindow::changespeed()//选择速度
 {
     QString str_speed = lineEdit->text();
     bool ok = true;
     controll_speed = str_speed.toInt(&ok,10);
 }
-void MainWindow::changecolorscheme()
+void MainWindow::changecolorscheme()//选择颜色模式
 {
     QString str_color = lineEdit2->text();
     bool ok = true;
