@@ -11,7 +11,7 @@ void MySyntaxHighlighter::highlightBlock(const QString &text) //高亮文本块
 {
     QTextCharFormat myFormat; //字符格式
     myFormat.setFontWeight(QFont::Bold);
-    myFormat.setForeground(Qt::green);
+    myFormat.setForeground(Qt::black);
 //"\\bmoney\\b"
     QString pattern = "\\b"+str+"\\b"; //要匹配的字符，这里是“char”单词
 
