@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     saveAction->setStatusTip(tr("Save a new file"));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(saveFile()));
 
-    chooseAction = new QAction(tr("choose"), this);
+    chooseAction = new QAction(QIcon(":/images/choose"), tr("choose"), this);
     //chooseAction->setShortcuts(QKeySequence::Save);
     chooseAction->setStatusTip(tr("choose"));
     connect(chooseAction, SIGNAL(triggered()), this, SLOT(choose()));
