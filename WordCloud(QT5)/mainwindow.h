@@ -16,6 +16,7 @@ struct Node
 };
 
 class QTextEdit;
+class QLineEdit;
 
 class MainWindow : public QMainWindow
 {
@@ -28,12 +29,15 @@ public:
 private slots:
     void openFile();
     void saveFile();
+    void choose();
 
 private:
     QAction *openAction;
     QAction *saveAction;
+    QAction *chooseAction;
 
     QTextEdit *textEdit;
+    QLineEdit *lineEdit;
 
     QString s;
     QWidget *centralW,*rightW;

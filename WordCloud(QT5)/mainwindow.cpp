@@ -6,6 +6,10 @@
 #include<algorithm>
 #include<QGridLayout>
 #include<cstring>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QDialog>
+#include <QVBoxLayout>
 
 
 #define k(a,b) int a##b;
@@ -28,13 +32,20 @@ MainWindow::MainWindow(QWidget *parent) :
     saveAction->setStatusTip(tr("Save a new file"));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(saveFile()));
 
+    chooseAction = new QAction(tr("choose"), this);
+    //chooseAction->setShortcuts(QKeySequence::Save);
+    chooseAction->setStatusTip(tr("choose"));
+    connect(chooseAction, SIGNAL(triggered()), this, SLOT(choose()));
+
     QMenu *file = menuBar()->addMenu(tr("&File"));
     file->addAction(openAction);
     file->addAction(saveAction);
+    file->addAction(chooseAction);
 
     QToolBar *toolBar = addToolBar(tr("&File"));
     toolBar->addAction(openAction);
     toolBar->addAction(saveAction);
+    toolBar->addAction(chooseAction);
 
     centralW=new QWidget(this);
     textEdit = new QTextEdit();
@@ -269,4 +280,17 @@ void MainWindow::saveFile()
     } else {
         QMessageBox::warning(this, tr("Path"), tr("You did not select any file."));
     }
+}
+
+void MainWindow::choose()
+{
+    QDialog *dlg = new QDialog(this);
+    lineEdit = new QLineEdit(dlg);
+    QPushButton *btn = new QPushButton(dlg);
+    btn->setText(tr("commit"));
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(lineEdit);
+    layout->addWidget(btn);
+    dlg->setLayout(layout);
+    dlg->show();
 }
