@@ -275,10 +275,13 @@ void MainWindow::openFile()
             label->times = p->second;
             node.lb=label;
             //需要加上判断，若为第一种方案，为下面的选择,每个初始生成的Label都为背景色，这样才看不出来。
-            //label->setStyleSheet("color:#000000;""font:bold;");
+            if(controll_colorscheme == 1)
+            label->setStyleSheet("color:#000000;""font:bold;");
             //第二种方案
-            //label->setStyleSheet("color:#;""font:bold;");
+            else if(controll_colorscheme == 2)
+            label->setStyleSheet("color:#;""font:bold;");
             //第三种方案
+            else
             label->setStyleSheet("color:#ffe0e0;""font-blod;");qDebug()<<"d";
             QFont *font=new QFont("Courier",node.times*10);//新建一个与当前单词的频率所对应的font
             label->setFont(*font);//设置字体
@@ -335,16 +338,30 @@ void MainWindow::saveFile()
 
 void MainWindow::choose()
 {
-    QDialog *dlg = new QDialog(this);
-    lineEdit = new QLineEdit(dlg);
-    QPushButton *btn = new QPushButton(dlg);
-    btn->setText(tr("commit"));
-    connect(btn,SIGNAL(clicked()),this,SLOT(changespeed()));
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(lineEdit);
-    layout->addWidget(btn);
-    dlg->setLayout(layout);
-    dlg->show();
+       QDialog *dlg = new QDialog(this);
+       QLabel *lab = new QLabel(dlg);
+       QLabel *lab2 = new QLabel(dlg);
+       //dlg->setStyleSheet("background-color: blue");
+       lab->setText("please input the speed");
+       lab2->setText("please choose the color plan");
+       dlg->setWindowTitle(tr("choose"));
+       lineEdit = new QLineEdit(dlg);
+       lineEdit2 = new QLineEdit(dlg);
+       QPushButton *btn = new QPushButton(dlg);
+       QPushButton *btn2 = new QPushButton(dlg);
+       btn->setText(tr("commit"));
+       btn2->setText(tr("commit"));
+       connect(btn,SIGNAL(clicked()),this,SLOT(changespeed()));
+       connect(btn2,SIGNAL(clicked()),this,SLOT(changecolorscheme()));
+       QVBoxLayout *layout = new QVBoxLayout;
+       layout->addWidget(lab);
+       layout->addWidget(lineEdit);
+       layout->addWidget(btn);
+       layout->addWidget(lab2);
+       layout->addWidget(lineEdit2);
+       layout->addWidget(btn2);
+       dlg->setLayout(layout);
+       dlg->show();
 }
 
 void MainWindow::changespeed()
@@ -352,4 +369,10 @@ void MainWindow::changespeed()
     QString str_speed = lineEdit->text();
     bool ok = true;
     controll_speed = str_speed.toInt(&ok,10);
+}
+void MainWindow::changecolorscheme()
+{
+    QString str_color = lineEdit2->text();
+    bool ok = true;
+    controll_colorscheme = str_color.toInt(&ok,10);
 }

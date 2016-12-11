@@ -38,6 +38,7 @@ private:
 
     QTextEdit *textEdit;
     QLineEdit *lineEdit;
+    QLineEdit *lineEdit2;
 
     QString s;
     QWidget *centralW,*rightW;
@@ -53,11 +54,13 @@ private:
     int id;
     QTimer *timer;
     int controll_speed;
+        int controll_colorscheme;
 
-private slots:
-    void changeColor();
-    //QGridLayout *g;
-    void changespeed();
+    private slots:
+        void changeColor();
+        //QGridLayout *g;
+        void changespeed();
+        void changecolorscheme();
 };
 
 #endif // MAINWINDOW_H
