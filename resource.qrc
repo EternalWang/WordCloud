@@ -2,6 +2,6 @@
     <qresource prefix="/images">
         <file>file-open.png</file>
         <file>file-save.png</file>
-        <file>choose.jpg</file>
+        <file>setting.png</file>
     </qresource>
 </RCC>

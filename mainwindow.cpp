@@ -28,17 +28,18 @@ MainWindow::MainWindow(QWidget *parent) :
     saveAction->setStatusTip(tr("Save a new file"));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(saveFile()));
 
-    chooseAction = new QAction(QIcon(":/images/choose"), tr("choose"), this);
+    chooseAction = new QAction(QIcon(":/images/setting"), tr("setting"), this);
     //chooseAction->setShortcuts(QKeySequence::Save);
-    chooseAction->setStatusTip(tr("choose"));
+    chooseAction->setStatusTip(tr("setting"));
     connect(chooseAction, SIGNAL(triggered()), this, SLOT(choose()));
 
-    QMenu *file = menuBar()->addMenu(tr("&File"));
+    /*QMenu *file = menuBar()->addMenu(tr("&File"));
     file->addAction(openAction);
     file->addAction(saveAction);
-    file->addAction(chooseAction);
-
-    QToolBar *toolBar = addToolBar(tr("&File"));
+    file->addAction(chooseAction);*/
+    //addToolBar();
+    QToolBar *toolBar =new QToolBar(tr("&File"));
+    addToolBar(Qt::LeftToolBarArea,toolBar);
     toolBar->addAction(openAction);
     toolBar->addAction(saveAction);
     toolBar->addAction(chooseAction);
@@ -52,8 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
     layout->addWidget(rightW);
     //MainWind中间部件（CentralWidget）设置为centralW，centralW左边为textEdit，右边为rightW。
     centralW->setLayout(layout);
-    centralW->setMaximumHeight(1000);
-    this->setMaximumHeight(1000);
+    //centralW->setMaximumHeight(1000);
+    //this->setMaximumHeight(1000);
     setCentralWidget(centralW);
 
     st.insert("The");
@@ -232,8 +233,6 @@ void MainWindow::changeColor()
 }
 void MainWindow::openFile()
 {
-    delete(rightW);
-    rightW=new QWidget();
     id=0;
     memset(fill,0,sizeof(fill));
     QGridLayout *g=new QGridLayout();
@@ -283,7 +282,7 @@ void MainWindow::openFile()
         for(p=mp.begin();p!=mp.end();p++)
         {
             node.times=p->second;
-            Label *label=new Label(p->first,textEdit,rightW);
+            Label *label=new Label(p->first,textEdit);
             label->words = p->first;
             label->times = p->second;
             node.lb=label;
@@ -316,6 +315,8 @@ void MainWindow::openFile()
         }
         sort(v.begin(),v.end(),cmpNode);
         g->setVerticalSpacing(0);//设置垂直间距
+        delete(rightW);
+        rightW=new QWidget();
         layout->addWidget(rightW);
         rightW->setLayout(g);
         QSizePolicy spr=rightW->sizePolicy();
