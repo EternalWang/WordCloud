@@ -116,6 +116,8 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("What");
     st.insert("About");
 
+    int controll_speed;
+
 }
 
 MainWindow::~MainWindow()
@@ -306,7 +308,7 @@ void MainWindow::openFile()
         //qDebug()<<vl.size();
         file.close();
         timer=new QTimer();
-        timer->setInterval(5000/v.size());
+        timer->setInterval(controll_speed/v.size());
         timer->start();
         connect(timer,SIGNAL(timeout()),this,SLOT(changeColor()));
     } else {
@@ -337,9 +339,17 @@ void MainWindow::choose()
     lineEdit = new QLineEdit(dlg);
     QPushButton *btn = new QPushButton(dlg);
     btn->setText(tr("commit"));
+    connect(btn,SIGNAL(clicked()),this,SLOT(changespeed()));
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(lineEdit);
     layout->addWidget(btn);
     dlg->setLayout(layout);
     dlg->show();
+}
+
+void MainWindow::changespeed()
+{
+    QString str_speed = lineEdit->text();
+    bool ok = true;
+    controll_speed = str_speed.toInt(&ok,10);
 }
