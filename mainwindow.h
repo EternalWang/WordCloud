@@ -52,10 +52,12 @@ private:
     void set(int r,int c,int h,int l);//修改fill
     int id;
     QTimer *timer;
+    int controll_speed;
 
 private slots:
     void changeColor();
     //QGridLayout *g;
+    void changespeed();
 };
 
 #endif // MAINWINDOW_H
