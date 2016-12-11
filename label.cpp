@@ -9,10 +9,10 @@
 Label::Label(QString str,QTextEdit *text,QWidget *parent):
 QLabel(parent)
 {
-QPalette palette;
-palette.setColor(QPalette::WindowText,QColor(50,255,255));
+//QPalette palette;
+//palette.setColor(QPalette::WindowText,QColor(50,255,255));
 this->setText(str);
-this->setPalette(palette);
+//this->setPalette(palette);
 setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
 //this->setStyleSheet("background-color:blue");
 this->setCursor(Qt::PointingHandCursor);
