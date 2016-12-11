@@ -18,17 +18,26 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     //到后根据对话框的选择，在这里加上判断就OK
     //背景颜色--第一种方案
-    /*QPalette palette(this->palette());
+    if(controll_colorscheme == 1)
+    {
+    QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::black);
-    this->setPalette(palette);*/
+    this->setPalette(palette);
+    }
+    else if(controll_colorscheme == 2)
     //背景颜色--第二种方案
-    /*QPalette palette(this->palette());
+    {
+    QPalette palette(this->palette());
     palette.setColor(QPalette::Background, QColor::fromRgb(0,31,0));
     this->setPalette(palette);
+    }
     //背景颜色--第三种方案
-    */QPalette palette(this->palette());
+    else
+    {
+    QPalette palette(this->palette());
     palette.setColor(QPalette::Background, QColor::fromRgb(255,224,224));
     this->setPalette(palette);
+    }
     //背景颜色
     openAction = new QAction(QIcon(":/images/file-open"), tr("&Open..."), this);
     openAction->setShortcuts(QKeySequence::Open);
@@ -116,8 +125,6 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("What");
     st.insert("About");
 
-    int controll_speed;
-
 }
 
 MainWindow::~MainWindow()
@@ -153,7 +160,9 @@ void MainWindow::changeColor()
     //这里改变字体的颜色是在原来生成的字体的颜色上改变的。
     //所以生成label的时候的颜色必须和背景颜色一样，否则就会产生一种覆盖现象
     //第一种方案
-    /*if(id%11==0)
+    if(controll_colorscheme == 1)
+    {
+    if(id%11==0)
     {
         v[id].lb->setStyleSheet("color:#568DFB;""font:bold;");
     }
@@ -197,11 +206,15 @@ void MainWindow::changeColor()
     {
         v[id].lb->setStyleSheet("color:#C8E4FA;""font:bold;");
     }
-
+}
     //第二种方案
+    else if(controll_colorscheme == 2)
+    {
     if(id>=0)
         v[id].lb->setStyleSheet("color:#f0f0c0;""font:bold;");
-    */
+    }
+    else
+    {
     //第三种方案
     if(id<=31)
     {
@@ -216,7 +229,7 @@ void MainWindow::changeColor()
     if(id==v.size())
         timer->stop();
 }
-
+}
 void MainWindow::openFile()
 {
     delete(rightW);
