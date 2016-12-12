@@ -32,10 +32,13 @@ MainWindow::MainWindow(QWidget *parent) :
     chooseAction->setStatusTip(tr("setting"));
     connect(chooseAction, SIGNAL(triggered()), this, SLOT(choose()));
 
+<<<<<<< HEAD
     refreshAction=new QAction(QIcon(":/images/refresh"),tr("refresh"),this);
     refreshAction->setStatusTip(tr("refresh"));
     connect(refreshAction,SIGNAL(triggered()),this,SLOT(refresh()));
 
+=======
+>>>>>>> origin/master
     /*QMenu *file = menuBar()->addMenu(tr("&File"));
     file->addAction(openAction);
     file->addAction(saveAction);
@@ -238,7 +241,7 @@ void MainWindow::openFile()
 {
     id=0;
     memset(fill,0,sizeof(fill));
-    QGridLayout *g=new QGridLayout();
+   // QGridLayout *g=new QGridLayout();
     QString path = QFileDialog::getOpenFileName(this, tr("Open File"), ".", tr("Text Files(*.txt)"));
     if(!path.isEmpty()) {
         QFile file(path);
@@ -246,91 +249,12 @@ void MainWindow::openFile()
             QMessageBox::warning(this, tr("Read File"), tr("Cannot open file:\n%1").arg(path));
             return;
         }
-        v.clear();//清空vector v
-        mp.clear();//清空map mp
+       /* v.clear();//清空vector v
+        mp.clear();//清空map mp*/
         map<QString,int>::iterator p;//迭代器
         QTextStream in(&file);
         textEdit->setText(s=in.readAll());
-        QString tmp;
-        int l,r;//指示单词范围的左右指针
-        //配色
-        //qDebug()<<rightW->width()<<rightW->height();
-        for(l=r=0;r<s.size()&&l<s.size();)//切词并统计词频
-        {
-            while(l<s.size()&&!judge(s[l]))
-                l++;
-            if(l==s.size())
-                break;
-            r=l;
-            while(r<s.size()&&judge(s[r]))
-                r++;
-            tmp=s.mid(l,r-l);
-            tmp[0]=tmp[0].toUpper();//首字符大写，其余小写。
-            for(int i=1;i<tmp.size();i++)
-                tmp[i]=tmp[i].toLower();
-            if(st.find(tmp)!=st.end())
-            {
-                l=r;
-                continue;
-            }
-            p=mp.find(tmp);
-            if(p==mp.end())
-                mp[tmp]=1;
-            else
-                p->second++;
-            l=r;
-        }
-
-        Node node;
-        for(p=mp.begin();p!=mp.end();p++)
-        {
-            node.times=p->second;
-            Label *label=new Label(p->first,textEdit);
-            label->words = p->first;
-            label->times = p->second;
-            node.lb=label;
-            //需要加上判断，若为第一种方案，为下面的选择,每个初始生成的Label都为背景色，这样才看不出来。
-            if(controll_colorscheme == 1)
-            label->setStyleSheet("color:#000000;""font:bold;");
-            //第二种方案
-            else if(controll_colorscheme == 2)
-            label->setStyleSheet("color:#001f00;""font:bold;");
-            //第三种方案
-            else
-            label->setStyleSheet("color:#ffe0e0;""font-blod;");qDebug()<<"d";
-            QFont *font=new QFont("Courier",node.times*10);//新建一个与当前单词的频率所对应的font
-            label->setFont(*font);//设置字体
-            bool flag=true;//当前label待放入gridlayout
-            for(int j=0;j+node.times<R&&flag;j++)//遍历grid的每一行
-                for(int ll=0;ll+node.times*p->first.size()<C;ll++)//遍历grid的每一列
-                {
-                    if(ok(j,ll,node.times,node.times*p->first.size()))//当前位置可以放入
-                    {//qDebug()<<v[i].times<<v[i].word<<j<<ll;
-                        v.push_back(node);
-                        set(j,ll,node.times,node.times*p->first.size());//设置标记数组
-                        g->addWidget(label,j,ll,node.times,node.times*p->first.size(),Qt::AlignAbsolute);//放置标签
-                        //qDebug()<<label->width()<<label->height();,Qt::AlignTop|Qt::AlignRight,Qt::AlignAbsolute,Qt::AlignHCenter
-                        flag=false;//已放置
-                        break;//跳出内层循环
-                    }
-                }
-            //qDebug()<<label->width()<<label->height();
-        }
-        sort(v.begin(),v.end(),cmpNode);
-        g->setVerticalSpacing(0);//设置垂直间距
-        delete(rightW);
-        rightW=new QWidget();
-        layout->addWidget(rightW);
-        rightW->setLayout(g);
-        QSizePolicy spr=rightW->sizePolicy();
-        spr.setVerticalPolicy(QSizePolicy::Maximum);
-        rightW->setSizePolicy(spr);
-        //qDebug()<<vl.size();
-        file.close();
-        timer=new QTimer();
-        timer->setInterval(controll_speed/v.size());
-        timer->start();
-        connect(timer,SIGNAL(timeout()),this,SLOT(changeColor()));
+        reflash();
     } else {
         QMessageBox::warning(this, tr("Path"), tr("You did not select any file."));
     }
@@ -363,7 +287,10 @@ void MainWindow::choose()
        QPushButton *btn = new QPushButton(dlg);
        QPushButton *btn2 = new QPushButton(dlg);
        lab->setText("please input the speed");
-       lab2->setText("please choose the color plan");
+       lab2->setText("please choose the color plan:"
+                     "1:Colorful world"
+                     "2:brief"
+                     "3:girl pink");
        dlg->setWindowTitle(tr("choose"));
        btn->setText(tr("commit"));
        btn2->setText(tr("commit"));
@@ -396,4 +323,93 @@ void MainWindow::changecolorscheme()//选择颜色模式
     QString str_color = lineEdit2->text();
     bool ok = true;
     controll_colorscheme = str_color.toInt(&ok,10);
+}
+
+void MainWindow::reflash()
+{
+    v.clear();//清空vector v
+    mp.clear();//清空map mp
+    map<QString,int>::iterator p;//迭代器
+    s = textEdit->toPlainText();
+    QString tmp;
+    int l,r;//指示单词范围的左右指针
+    //配色
+    //qDebug()<<rightW->width()<<rightW->height();
+    for(l=r=0;r<s.size()&&l<s.size();)//切词并统计词频
+    {
+        while(l<s.size()&&!judge(s[l]))
+            l++;
+        if(l==s.size())
+            break;
+        r=l;
+        while(r<s.size()&&judge(s[r]))
+            r++;
+        tmp=s.mid(l,r-l);
+        tmp[0]=tmp[0].toUpper();//首字符大写，其余小写。
+        for(int i=1;i<tmp.size();i++)
+            tmp[i]=tmp[i].toLower();
+        if(st.find(tmp)!=st.end())
+        {
+            l=r;
+            continue;
+        }
+        p=mp.find(tmp);
+        if(p==mp.end())
+            mp[tmp]=1;
+        else
+            p->second++;
+        l=r;
+    }
+QGridLayout *g=new QGridLayout();
+    Node node;
+    for(p=mp.begin();p!=mp.end();p++)
+    {
+        node.times=p->second;
+        Label *label=new Label(p->first,textEdit);
+        label->words = p->first;
+        label->times = p->second;
+        node.lb=label;
+        //需要加上判断，若为第一种方案，为下面的选择,每个初始生成的Label都为背景色，这样才看不出来。
+        if(controll_colorscheme == 1)
+        label->setStyleSheet("color:#000000;""font:bold;");
+        //第二种方案
+        else if(controll_colorscheme == 2)
+        label->setStyleSheet("color:#001f00;""font:bold;");
+        //第三种方案
+        else
+        label->setStyleSheet("color:#ffe0e0;""font-blod;");qDebug()<<"d";
+        QFont *font=new QFont("Courier",node.times*10);//新建一个与当前单词的频率所对应的font
+        label->setFont(*font);//设置字体
+        bool flag=true;//当前label待放入gridlayout
+        for(int j=0;j+node.times<R&&flag;j++)//遍历grid的每一行
+            for(int ll=0;ll+node.times*p->first.size()<C;ll++)//遍历grid的每一列
+            {
+                if(ok(j,ll,node.times,node.times*p->first.size()))//当前位置可以放入
+                {//qDebug()<<v[i].times<<v[i].word<<j<<ll;
+                    v.push_back(node);
+                    set(j,ll,node.times,node.times*p->first.size());//设置标记数组
+                    g->addWidget(label,j,ll,node.times,node.times*p->first.size(),Qt::AlignAbsolute);//放置标签
+                    //qDebug()<<label->width()<<label->height();,Qt::AlignTop|Qt::AlignRight,Qt::AlignAbsolute,Qt::AlignHCenter
+                    flag=false;//已放置
+                    break;//跳出内层循环
+                }
+            }
+        //qDebug()<<label->width()<<label->height();
+    }
+    sort(v.begin(),v.end(),cmpNode);
+
+    g->setVerticalSpacing(0);//设置垂直间距
+    delete(rightW);
+    rightW=new QWidget();
+    layout->addWidget(rightW);
+    rightW->setLayout(g);
+    QSizePolicy spr=rightW->sizePolicy();
+    spr.setVerticalPolicy(QSizePolicy::Maximum);
+    rightW->setSizePolicy(spr);
+    //qDebug()<<vl.size();
+   // file.close();
+    timer=new QTimer();
+    timer->setInterval(controll_speed/v.size());
+    timer->start();
+    connect(timer,SIGNAL(timeout()),this,SLOT(changeColor()));
 }

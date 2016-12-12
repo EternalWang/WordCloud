@@ -62,6 +62,7 @@ private:
         //QGridLayout *g;
         void changespeed();
         void changecolorscheme();
+        void reflash();
 };
 
 #endif // MAINWINDOW_H
