@@ -32,10 +32,18 @@ MainWindow::MainWindow(QWidget *parent) :
     chooseAction->setStatusTip(tr("setting"));
     connect(chooseAction, SIGNAL(triggered()), this, SLOT(choose()));
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
     refreshAction=new QAction(QIcon(":/images/refresh"),tr("refresh"),this);
     refreshAction->setStatusTip(tr("refresh"));
     connect(refreshAction,SIGNAL(triggered()),this,SLOT(reflash()));
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
     /*QMenu *file = menuBar()->addMenu(tr("&File"));
     file->addAction(openAction);
     file->addAction(saveAction);
@@ -236,8 +244,6 @@ void MainWindow::changeColor()
 }
 void MainWindow::openFile()
 {
-    id=0;
-    memset(fill,0,sizeof(fill));
    // QGridLayout *g=new QGridLayout();
     QString path = QFileDialog::getOpenFileName(this, tr("Open File"), ".", tr("Text Files(*.txt)"));
     if(!path.isEmpty()) {
@@ -246,6 +252,12 @@ void MainWindow::openFile()
             QMessageBox::warning(this, tr("Read File"), tr("Cannot open file:\n%1").arg(path));
             return;
         }
+<<<<<<< HEAD
+       /* v.clear();//清空vector v
+        mp.clear();//清空map mp*/
+
+=======
+>>>>>>> origin/master
         QTextStream in(&file);
         textEdit->setText(in.readAll());
         reflash();
@@ -302,10 +314,6 @@ void MainWindow::choose()
        dlg->show();
 }
 
-void MainWindow::refresh()
-{
-
-}
 
 void MainWindow::changespeed()//选择速度
 {
@@ -326,12 +334,23 @@ map<QString,int>::iterator p;//迭代器
 */
 void MainWindow::reflash()
 {
-   /* v.clear();//清空vector v
-    mp.clear();//清空map mp*/
+<<<<<<< HEAD
     id=0;
     memset(fill,0,sizeof(fill));
+    v.clear();//清空vector v
+    mp.clear();//清空map mp
+=======
+   /* v.clear();//清空vector v
+    mp.clear();//清空map mp*/
+<<<<<<< HEAD
+    id=0;
+    memset(fill,0,sizeof(fill));
+=======
+
+>>>>>>> origin/master
+>>>>>>> origin/master
     map<QString,int>::iterator p;//迭代器
-    s = textEdit->toPlainText();
+    s = textEdit->toPlainText();qDebug()<<s;
     QString tmp;
     int l,r;//指示单词范围的左右指针
     //配色
@@ -360,7 +379,7 @@ void MainWindow::reflash()
         else
             p->second++;
         l=r;
-    }
+    }qDebug()<<"wow";
 QGridLayout *g=new QGridLayout();
     Node node;
     for(p=mp.begin();p!=mp.end();p++)
@@ -400,6 +419,7 @@ QGridLayout *g=new QGridLayout();
     sort(v.begin(),v.end(),cmpNode);
 
     g->setVerticalSpacing(0);//设置垂直间距
+    qDebug()<<"q";
     delete(rightW);
     rightW=new QWidget();
     layout->addWidget(rightW);
@@ -407,10 +427,14 @@ QGridLayout *g=new QGridLayout();
     QSizePolicy spr=rightW->sizePolicy();
     spr.setVerticalPolicy(QSizePolicy::Maximum);
     rightW->setSizePolicy(spr);
-    //qDebug()<<vl.size();
+    qDebug()<<"w";
    // file.close();
     timer=new QTimer();
     timer->setInterval(controll_speed/v.size());
     timer->start();
     connect(timer,SIGNAL(timeout()),this,SLOT(changeColor()));
+}
+void MainWindow::refresh()
+{
+    reflash();
 }
