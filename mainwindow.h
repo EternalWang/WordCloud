@@ -56,13 +56,13 @@ private:
     QTimer *timer;
     int controll_speed = 5000;
         int controll_colorscheme = 1;
+        void reflash();
 
     private slots:
         void changeColor();
         //QGridLayout *g;
         void changespeed();
         void changecolorscheme();
-        void reflash();
 };
 
 #endif // MAINWINDOW_H
