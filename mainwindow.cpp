@@ -248,7 +248,6 @@ void MainWindow::openFile()
         }
         QTextStream in(&file);
         textEdit->setText(in.readAll());
-        s = textEdit->toPlainText();
         reflash();
         file.close();
     } else {
@@ -329,7 +328,8 @@ void MainWindow::reflash()
 {
    /* v.clear();//清空vector v
     mp.clear();//清空map mp*/
-
+    id=0;
+    memset(fill,0,sizeof(fill));
     map<QString,int>::iterator p;//迭代器
     s = textEdit->toPlainText();
     QString tmp;
