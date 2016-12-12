@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>file-open.png</file>
+        <file>file-save.png</file>
+        <file>setting.png</file>
+        <file>refresh.png</file>
+    </qresource>
+</RCC>

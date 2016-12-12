@@ -32,17 +32,21 @@ MainWindow::MainWindow(QWidget *parent) :
     chooseAction->setStatusTip(tr("setting"));
     connect(chooseAction, SIGNAL(triggered()), this, SLOT(choose()));
 
-    QMenu *file = menuBar()->addMenu(tr("&File"));
+    refreshAction=new QAction(QIcon(":/images/refresh"),tr("refresh"),this);
+    refreshAction->setStatusTip(tr("refresh"));
+    connect(refreshAction,SIGNAL(triggered()),this,SLOT(refresh()));
+
+    /*QMenu *file = menuBar()->addMenu(tr("&File"));
     file->addAction(openAction);
     file->addAction(saveAction);
-    file->addAction(chooseAction);
+    file->addAction(chooseAction);*/
     //addToolBar();
     QToolBar *toolBar =new QToolBar(tr("&File"));
     addToolBar(Qt::LeftToolBarArea,toolBar);
     toolBar->addAction(openAction);
     toolBar->addAction(saveAction);
     toolBar->addAction(chooseAction);
-
+    toolBar->addAction(refreshAction);
     centralW=new QWidget(this);
     textEdit = new QTextEdit();
     textEdit->setMinimumWidth(300);
@@ -374,6 +378,11 @@ void MainWindow::choose()
        layout->addWidget(btn2);
        dlg->setLayout(layout);
        dlg->show();
+}
+
+void MainWindow::refresh()
+{
+
 }
 
 void MainWindow::changespeed()//选择速度

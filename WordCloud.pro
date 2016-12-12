@@ -23,4 +23,6 @@ HEADERS  += \
     mysyntaxhighlighter.h
 
 RESOURCES += \
-    resource.qrc
+    res.qrc
+
+DISTFILES +=

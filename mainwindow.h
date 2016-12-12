@@ -30,11 +30,12 @@ private slots:
     void openFile();
     void saveFile();
     void choose();
-
+    void refresh();
 private:
     QAction *openAction;
     QAction *saveAction;
     QAction *chooseAction;
+    QAction *refreshAction;
 
     QTextEdit *textEdit;
     QLineEdit *lineEdit;
