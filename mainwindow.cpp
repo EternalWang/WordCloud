@@ -106,7 +106,25 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("So");
     st.insert("What");
     st.insert("About");
-
+    st.insert("After");
+    st.insert("Any");
+    st.insert("Because");
+    st.insert("Why");
+    st.insert("Been");
+    st.insert("Four");
+    st.insert("Three");
+    st.insert("Since");
+    st.insert("Some");
+    st.insert("0");
+    st.insert("1");
+    st.insert("2");
+    st.insert("3");
+    st.insert("4");
+    st.insert("5");
+    st.insert("6");
+    st.insert("7");
+    st.insert("8");
+    st.insert("9");
 }
 
 MainWindow::~MainWindow()
@@ -114,7 +132,7 @@ MainWindow::~MainWindow()
 }
 bool judge(QChar s)//判断是否为单词的字母
 {
-    if((s>='a'&&s<='z')||(s>='A'&&s<='Z')||s=='\'')
+    if((s>='a'&&s<='z')||(s>='A'&&s<='Z')||s=='\''||(s>='0'&&s<='9')||s=='-')
         return true;
     return false;
 }
@@ -313,11 +331,7 @@ void MainWindow::changecolorscheme()//选择颜色模式
     bool ok = true;
     controll_colorscheme = str_color.toInt(&ok,10);
 }
-/*
-v.clear();//清空vector v
-mp.clear();//清空map mp
-map<QString,int>::iterator p;//迭代器
-*/
+
 void MainWindow::reflash()
 {
 
@@ -330,7 +344,6 @@ void MainWindow::reflash()
     QString tmp;
     int l,r;//指示单词范围的左右指针
     //配色
-    //qDebug()<<rightW->width()<<rightW->height();
     for(l=r=0;r<s.size()&&l<s.size();)//切词并统计词频
     {
         while(l<s.size()&&!judge(s[l]))
@@ -373,7 +386,7 @@ QGridLayout *g=new QGridLayout();
         label->setStyleSheet("color:#001f00;""font:bold;");
         //第三种方案
         else
-        label->setStyleSheet("color:#ffe0e0;""font-blod;");qDebug()<<"d";
+        label->setStyleSheet("color:#ffe0e0;""font-blod;");
         QFont *font=new QFont("Courier",node.times*10);//新建一个与当前单词的频率所对应的font
         label->setFont(*font);//设置字体
         bool flag=true;//当前label待放入gridlayout
@@ -381,7 +394,7 @@ QGridLayout *g=new QGridLayout();
             for(int ll=0;ll+node.times*p->first.size()<C;ll++)//遍历grid的每一列
             {
                 if(ok(j,ll,node.times,node.times*p->first.size()))//当前位置可以放入
-                {//qDebug()<<v[i].times<<v[i].word<<j<<ll;
+                {qDebug()<<p->first;
                     v.push_back(node);
                     set(j,ll,node.times,node.times*p->first.size());//设置标记数组
                     g->addWidget(label,j,ll,node.times,node.times*p->first.size(),Qt::AlignAbsolute);//放置标签
