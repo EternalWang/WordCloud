@@ -32,18 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
     chooseAction->setStatusTip(tr("setting"));
     connect(chooseAction, SIGNAL(triggered()), this, SLOT(choose()));
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     refreshAction=new QAction(QIcon(":/images/refresh"),tr("refresh"),this);
     refreshAction->setStatusTip(tr("refresh"));
     connect(refreshAction,SIGNAL(triggered()),this,SLOT(refresh()));
-
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     /*QMenu *file = menuBar()->addMenu(tr("&File"));
     file->addAction(openAction);
     file->addAction(saveAction);
@@ -329,10 +320,7 @@ map<QString,int>::iterator p;//迭代器
 */
 void MainWindow::reflash()
 {
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
     id=0;
     memset(fill,0,sizeof(fill));
     v.clear();//清空vector v
