@@ -29,14 +29,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(saveAction, SIGNAL(triggered()), this, SLOT(saveFile()));
 
     chooseAction = new QAction(QIcon(":/images/setting"), tr("setting"), this);
-    //chooseAction->setShortcuts(QKeySequence::Save);
     chooseAction->setStatusTip(tr("setting"));
     connect(chooseAction, SIGNAL(triggered()), this, SLOT(choose()));
 
-    /*QMenu *file = menuBar()->addMenu(tr("&File"));
+    QMenu *file = menuBar()->addMenu(tr("&File"));
     file->addAction(openAction);
     file->addAction(saveAction);
-    file->addAction(chooseAction);*/
+    file->addAction(chooseAction);
     //addToolBar();
     QToolBar *toolBar =new QToolBar(tr("&File"));
     addToolBar(Qt::LeftToolBarArea,toolBar);
@@ -355,14 +354,13 @@ void MainWindow::choose()
        QDialog *dlg = new QDialog(this);
        QLabel *lab = new QLabel(dlg);
        QLabel *lab2 = new QLabel(dlg);
-       //dlg->setStyleSheet("background-color: blue");
-       lab->setText("please input the speed");
-       lab2->setText("please choose the color plan");
-       dlg->setWindowTitle(tr("choose"));
        lineEdit = new QLineEdit(dlg);
        lineEdit2 = new QLineEdit(dlg);
        QPushButton *btn = new QPushButton(dlg);
        QPushButton *btn2 = new QPushButton(dlg);
+       lab->setText("please input the speed");
+       lab2->setText("please choose the color plan");
+       dlg->setWindowTitle(tr("choose"));
        btn->setText(tr("commit"));
        btn2->setText(tr("commit"));
        connect(btn,SIGNAL(clicked()),this,SLOT(changespeed()));

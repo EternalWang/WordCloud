@@ -5,19 +5,15 @@
 
 class MySyntaxHighlighter : public QSyntaxHighlighter
 {
-    Q_OBJECT
-public:
-    explicit MySyntaxHighlighter(QString str1,QTextDocument *parent = 0);
+        Q_OBJECT
+    public:
+        explicit MySyntaxHighlighter(QString str1,QTextDocument *parent = 0);
 
-signals:
+    protected:
+        void highlightBlock(const QString &text); //必须重新实现该函数
 
-public slots:
-
-protected:
-    void highlightBlock(const QString &text); //必须重新实现该函数
-
-public:
-    QString str;
+    public:
+        QString str;
 };
 
 #endif // MYSYNTAXHIGHLIGHTER_H

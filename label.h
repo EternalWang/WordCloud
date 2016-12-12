@@ -12,7 +12,6 @@ class Label:public QLabel//定义一个label类
     Q_OBJECT
 public:
     explicit Label(QString str,QTextEdit *text,QWidget *parent = 0);
-    virtual void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void enterEvent(QEvent*);
     void leaveEvent(QEvent*);
@@ -20,16 +19,10 @@ public:
     void paintEvent(QPaintEvent *event);
     bool over;
     bool press;
-    signals:
-    //自定义clicked()信号,在mousePressEvent事件发生时触发
-  //  void clicked();
-    public slots:
-    void change_color();
-
 public:
     int times;
     QString words;
 public:
-    MySyntaxHighlighter *highlighter;
+    MySyntaxHighlighter *highlighter;//高显
     QTextEdit *textEdit;
 };
