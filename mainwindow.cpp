@@ -32,10 +32,10 @@ MainWindow::MainWindow(QWidget *parent) :
     chooseAction->setStatusTip(tr("setting"));
     connect(chooseAction, SIGNAL(triggered()), this, SLOT(choose()));
 
-    QMenu *file = menuBar()->addMenu(tr("&File"));
+    /*QMenu *file = menuBar()->addMenu(tr("&File"));
     file->addAction(openAction);
     file->addAction(saveAction);
-    file->addAction(chooseAction);
+    file->addAction(chooseAction);*/
     //addToolBar();
     QToolBar *toolBar =new QToolBar(tr("&File"));
     addToolBar(Qt::LeftToolBarArea,toolBar);
@@ -359,7 +359,10 @@ void MainWindow::choose()
        QPushButton *btn = new QPushButton(dlg);
        QPushButton *btn2 = new QPushButton(dlg);
        lab->setText("please input the speed");
-       lab2->setText("please choose the color plan");
+       lab2->setText("please choose the color plan:"
+                     "1:Colorful world"
+                     "2:brief"
+                     "3:girl pink");
        dlg->setWindowTitle(tr("choose"));
        btn->setText(tr("commit"));
        btn2->setText(tr("commit"));
