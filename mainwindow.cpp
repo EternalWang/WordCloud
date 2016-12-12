@@ -32,12 +32,18 @@ MainWindow::MainWindow(QWidget *parent) :
     chooseAction->setStatusTip(tr("setting"));
     connect(chooseAction, SIGNAL(triggered()), this, SLOT(choose()));
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     refreshAction=new QAction(QIcon(":/images/refresh"),tr("refresh"),this);
     refreshAction->setStatusTip(tr("refresh"));
-    connect(refreshAction,SIGNAL(triggered()),this,SLOT(refresh()));
+    connect(refreshAction,SIGNAL(triggered()),this,SLOT(reflash()));
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     /*QMenu *file = menuBar()->addMenu(tr("&File"));
     file->addAction(openAction);
     file->addAction(saveAction);
@@ -246,9 +252,12 @@ void MainWindow::openFile()
             QMessageBox::warning(this, tr("Read File"), tr("Cannot open file:\n%1").arg(path));
             return;
         }
+<<<<<<< HEAD
        /* v.clear();//清空vector v
         mp.clear();//清空map mp*/
 
+=======
+>>>>>>> origin/master
         QTextStream in(&file);
         textEdit->setText(s=in.readAll());
         reflash();
@@ -318,7 +327,11 @@ void MainWindow::changecolorscheme()//选择颜色模式
     bool ok = true;
     controll_colorscheme = str_color.toInt(&ok,10);
 }
-
+/*
+v.clear();//清空vector v
+mp.clear();//清空map mp
+map<QString,int>::iterator p;//迭代器
+*/
 void MainWindow::reflash()
 {
     id=0;
