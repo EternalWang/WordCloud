@@ -247,8 +247,10 @@ void MainWindow::openFile()
             return;
         }
         QTextStream in(&file);
-        textEdit->setText(s=in.readAll());
+        textEdit->setText(in.readAll());
+        s = textEdit->toPlainText();
         reflash();
+        file.close();
     } else {
         QMessageBox::warning(this, tr("Path"), tr("You did not select any file."));
     }
@@ -325,8 +327,9 @@ map<QString,int>::iterator p;//迭代器
 */
 void MainWindow::reflash()
 {
-    v.clear();//清空vector v
-    mp.clear();//清空map mp
+   /* v.clear();//清空vector v
+    mp.clear();//清空map mp*/
+
     map<QString,int>::iterator p;//迭代器
     s = textEdit->toPlainText();
     QString tmp;
