@@ -243,7 +243,7 @@ void MainWindow::changeColor()
     //第三种方案
     if(id<=31)
     {
-        v[id].lb->setStyleSheet("color:#f02222;""font:bold;""font-family:DFPPOP1W9-B5");
+        v[id].lb->setStyleSheet("color:#f02222;""font:bold;""font-family:DFPShaoNvW5-GB");
     }
     else
     {
