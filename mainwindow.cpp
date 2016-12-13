@@ -296,8 +296,9 @@ void MainWindow::choose()
        dlg = new QDialog(this);
        QLabel *lab = new QLabel(dlg);
        QLabel *lab2 = new QLabel(dlg);
+       QLabel *lab3 = new QLabel(dlg);
        lineEdit = new QLineEdit(dlg);
-       //lineEdit2 = new QLineEdit(dlg);
+       lineEdit2 = new QLineEdit(dlg);
        //QPushButton *btn = new QPushButton(dlg);
        QPushButton *btn = new QPushButton(dlg);
 
@@ -327,6 +328,7 @@ void MainWindow::choose()
 
        lab->setText("输入显示的最小频度:");
        lab2->setText("主题:");
+       lab3->setText("速度:");
        dlg->setWindowTitle(tr("设置"));
        btn->setText(tr("确定"));
 
@@ -336,6 +338,8 @@ void MainWindow::choose()
        QVBoxLayout *layout = new QVBoxLayout;
        layout->addWidget(lab);
        layout->addWidget(lineEdit);
+       layout->addWidget(lab3);
+        layout->addWidget(lineEdit2);
        layout->addWidget(lab2);
        layout->addLayout(vbox);
        //layout->addWidget(lineEdit2);
@@ -347,11 +351,11 @@ void MainWindow::choose()
 
 void MainWindow::change()//设置所有的变量
 {
-    //QString str_speed = lineEdit->text();
-    //bool ok = true;
-    //controll_speed = str_speed.toInt(&ok,10);
-    QString str_fren = lineEdit->text();
+    QString str_speed = lineEdit2->text();
     bool ok = true;
+    controll_speed = str_speed.toInt(&ok,10);
+    QString str_fren = lineEdit->text();
+    ok = true;
     controll_fren = str_fren.toInt(&ok,10);
     tmpp = groupBox->checkedId();
     qDebug()<<tmpp;
