@@ -328,7 +328,7 @@ void MainWindow::choose()
 
        lab->setText("输入显示的最小频度:");
        lab2->setText("主题:");
-       lab3->setText("速度:");
+       lab3->setText("速度(ms):");
        dlg->setWindowTitle(tr("设置"));
        btn->setText(tr("确定"));
 
