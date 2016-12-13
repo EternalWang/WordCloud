@@ -4,5 +4,6 @@
         <file>file-save.png</file>
         <file>setting.png</file>
         <file>refresh.png</file>
+        <file>style.qss</file>
     </qresource>
 </RCC>

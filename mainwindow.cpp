@@ -144,13 +144,13 @@ void MainWindow::changeColor()
 {
     //到后根据对话框的选择，在这里加上判断就OK
     //背景颜色--第一种方案
-    if(controll_colorscheme == 1)
+    if(tmpp==-1)
     {
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::black);
     this->setPalette(palette);
     }
-    else if(controll_colorscheme == 2)
+    else if(tmpp==-2)
     //背景颜色--第二种方案
     {
     QPalette palette(this->palette());
@@ -167,7 +167,7 @@ void MainWindow::changeColor()
     //这里改变字体的颜色是在原来生成的字体的颜色上改变的。
     //所以生成label的时候的颜色必须和背景颜色一样，否则就会产生一种覆盖现象
     //第一种方案
-    if(controll_colorscheme == 1)
+    if(tmpp==-1)
     {
     if(id%11==0)
     {
@@ -215,7 +215,7 @@ void MainWindow::changeColor()
     }
 }
     //第二种方案
-    else if(controll_colorscheme == 2)
+    else if(tmpp==-2)
     {
     if(id>=0)
         v[id].lb->setStyleSheet("color:#f0f0c0;""font:bold;");
@@ -279,26 +279,51 @@ void MainWindow::choose()
        QLabel *lab = new QLabel(dlg);
        QLabel *lab2 = new QLabel(dlg);
        lineEdit = new QLineEdit(dlg);
-       lineEdit2 = new QLineEdit(dlg);
+       //lineEdit2 = new QLineEdit(dlg);
+       //QPushButton *btn = new QPushButton(dlg);
        QPushButton *btn = new QPushButton(dlg);
-       QPushButton *btn2 = new QPushButton(dlg);
-       lab->setText("please input the speed");
-       lab2->setText("please choose the color plan:"
-                     "1:Colorful world"
-                     "2:brief"
-                     "3:girl pink");
-       dlg->setWindowTitle(tr("choose"));
-       btn->setText(tr("commit"));
-       btn2->setText(tr("commit"));
+
+
+
+       groupBox = new QButtonGroup(dlg);
+       rb1 =new QRadioButton(tr("多彩风"),dlg);
+       rb2 =new QRadioButton(tr("简约风"),dlg);
+       rb3 =new QRadioButton(tr("甜美风"),dlg);
+       rb1->setChecked(true);
+       QHBoxLayout *vbox = new QHBoxLayout;
+       vbox->addWidget(rb1);
+       vbox->addWidget(rb2);
+       vbox->addWidget(rb3);
+       vbox->addStretch(1);
+       groupBox->setId(rb1,0);
+       groupBox->setId(rb2,1);
+       groupBox->setId(rb3,2);
+       groupBox->addButton(rb1);
+       groupBox->addButton(rb2);
+       groupBox->addButton(rb3);
+       groupBox->setExclusive(true);
+
+
+
+
+
+       lab->setText("输入显示的最小频度:");
+       lab2->setText("主题:");
+       dlg->setWindowTitle(tr("设置"));
+       btn->setText(tr("确定"));
+
+
+       //connect(btn,SIGNAL(clicked()),this,SLOT(changecolorscheme())
        connect(btn,SIGNAL(clicked()),this,SLOT(changespeed()));
-       connect(btn2,SIGNAL(clicked()),this,SLOT(changecolorscheme()));
+       connect(btn,SIGNAL(clicked()),this,SLOT(selectWord()));
+       connect(btn,SIGNAL(clicked()),this,SLOT(changecolorscheme()));
        QVBoxLayout *layout = new QVBoxLayout;
        layout->addWidget(lab);
        layout->addWidget(lineEdit);
-       layout->addWidget(btn);
        layout->addWidget(lab2);
-       layout->addWidget(lineEdit2);
-       layout->addWidget(btn2);
+       layout->addLayout(vbox);
+       //layout->addWidget(lineEdit2);
+       layout->addWidget(btn);
        dlg->setLayout(layout);
        dlg->show();
 }
@@ -306,15 +331,23 @@ void MainWindow::choose()
 
 void MainWindow::changespeed()//选择速度
 {
-    QString str_speed = lineEdit->text();
-    bool ok = true;
-    controll_speed = str_speed.toInt(&ok,10);
+    //QString str_speed = lineEdit->text();
+    //bool ok = true;
+    //controll_speed = str_speed.toInt(&ok,10);
 }
+
+void MainWindow::selectWord()
+{
+    QString str_fren = lineEdit->text();
+    bool ok = true;
+    controll_fren = str_fren.toInt(&ok,10);
+}
+
 void MainWindow::changecolorscheme()//选择颜色模式
 {
-    QString str_color = lineEdit2->text();
-    bool ok = true;
-    controll_colorscheme = str_color.toInt(&ok,10);
+    tmpp = groupBox->checkedId();
+    qDebug()<<tmpp;
+
 }
 /*
 v.clear();//清空vector v
@@ -364,15 +397,17 @@ QGridLayout *g=new QGridLayout();
     for(p=mp.begin();p!=mp.end();p++)
     {
         node.times=p->second;
+        if(p->second>=controll_fren)
+        {
         Label *label=new Label(p->first,textEdit);
         label->words = p->first;
         label->times = p->second;
         node.lb=label;
         //需要加上判断，若为第一种方案，为下面的选择,每个初始生成的Label都为背景色，这样才看不出来。
-        if(controll_colorscheme == 1)
+        if(tmpp==-1)
         label->setStyleSheet("color:#000000;""font:bold;");
         //第二种方案
-        else if(controll_colorscheme == 2)
+        else if(tmpp==-2)
         label->setStyleSheet("color:#001f00;""font:bold;");
         //第三种方案
         else
@@ -380,6 +415,7 @@ QGridLayout *g=new QGridLayout();
         QFont *font=new QFont("Courier",node.times*10);//新建一个与当前单词的频率所对应的font
         label->setFont(*font);//设置字体
         bool flag=true;//当前label待放入gridlayout
+
         for(int j=0;j+node.times<R&&flag;j++)//遍历grid的每一行
             for(int ll=0;ll+node.times*p->first.size()<C;ll++)//遍历grid的每一列
             {
@@ -393,6 +429,10 @@ QGridLayout *g=new QGridLayout();
                     break;//跳出内层循环
                 }
             }
+        }
+        continue;
+
+
         //qDebug()<<label->width()<<label->height();
     }
     sort(v.begin(),v.end(),cmpNode);
