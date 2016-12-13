@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <!-- Written by QtCreator 4.0.2, 2016-12-13T13:56:05. -->
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/master
 <!-- Written by QtCreator 4.0.2, 2016-12-13T14:22:51. -->
 =======
 <<<<<<< HEAD
@@ -16,6 +19,9 @@
 >>>>>>> origin/master
 >>>>>>> origin/master
 >>>>>>> origin/master
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 <qtcreator>
  <data>
@@ -303,7 +309,11 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">WordCloud</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">WordCloud2</value>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/GitHub/WordCloud/WordCloud/WordCloud.pro</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/git/WordCloud/WordCloud/WordCloud.pro</value>
+>>>>>>> origin/master
 =======
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/git/WordCloud/WordCloud/WordCloud.pro</value>
 >>>>>>> origin/master
