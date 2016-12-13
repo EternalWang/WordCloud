@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include<QHBoxLayout>
+#include<QRadioButton>
+#include <QPushButton>
+#include <QtWidgets>
+#include <QtGui>
 #include<map>
 #include<vector>
 #include<set>
@@ -38,8 +42,14 @@ private:
     QAction *refreshAction;
 
     QTextEdit *textEdit;
+
     QLineEdit *lineEdit;
     QLineEdit *lineEdit2;
+
+    QButtonGroup *groupBox;
+    QRadioButton *rb1;
+    QRadioButton *rb2;
+    QRadioButton *rb3;
 
     QString s;
     QWidget *centralW,*rightW;
@@ -53,12 +63,17 @@ private:
     bool ok(int r,int c,int h,int l);//判断左上角放在gird(r,c)且规模为h*l的单词能否放下
     void set(int r,int c,int h,int l);//修改fill
     int id;
+    int tmpp;
+    QString str;
+
     QTimer *timer;
     int controll_speed = 5000;
         int controll_colorscheme = 1;
+        int controll_fren;
         void reflash();
 
     private slots:
+        void selectWord();
         void changeColor();
         //QGridLayout *g;
         void changespeed();
