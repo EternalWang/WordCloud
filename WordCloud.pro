@@ -25,4 +25,7 @@ HEADERS  += \
 RESOURCES += \
     res.qrc
 
+RC_FILE += app.rc
+
 DISTFILES +=
+

@@ -5,5 +5,7 @@
         <file>setting.png</file>
         <file>refresh.png</file>
         <file>style.qss</file>
+        <file>app.rc</file>
+        <file>cloud.ico</file>
     </qresource>
 </RCC>
