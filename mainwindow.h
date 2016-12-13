@@ -65,19 +65,19 @@ private:
     int id;
     int tmpp;
     QString str;
-
+    QDialog *dlg;
     QTimer *timer;
     int controll_speed = 5000;
         int controll_colorscheme = 1;
-        int controll_fren;
+        int controll_fren=1;
         void reflash();
 
     private slots:
-        void selectWord();
+        //void selectWord();
         void changeColor();
         //QGridLayout *g;
-        void changespeed();
-        void changecolorscheme();
+        void change();
+        //void changecolorscheme();
 };
 
 #endif // MAINWINDOW_H

@@ -1,42 +1,17 @@
-*{
-  color:white;
-  font-family:"宋体";
-}
-CallWidget QLineEdit#telEdt
-{
-  font-size:24px;
-}
-QMainWindow,QDialog{
+QDialog{
+    color:white;
      background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                  stop: 0 #1B2534, stop: 0.4 #010101,
                                  stop: 0.5 #000101, stop: 1.0 #1F2B3C);
 }
-QWidget{
-    background:#121922;
-}
-QHeaderView{
-        border: none;
-        border-bottom: 3px solid rgb(0, 160, 230);
-        background: #121922;
-        min-height: 30px;
-}
-QHeaderView::section{
-        border: none;
-        color: white;
-        background: #32435E;
-        padding-left: 5px;
-}
-QTableView QTableCornerButton::section {
-    background: #32435E;
+QDialog QLabel,QDialog QRadioButton,QDialog QLineEdit,QDialog QPushButton{
+    color:white;
 }
 QLabel{
    background:transparent;
 }
-DailForm QLineEdit#phoneLineEdt{
-  font-size:36px;
-  font-weight: bold;
-}
-QPushButton,QToolButton{
+
+QPushButton{
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                  stop: 0 #5B5F5F, stop: 0.5 #0C2436,
                                  stop: 1.0 #27405A);
@@ -46,19 +21,19 @@ QPushButton,QToolButton{
     border-color: #11223F;
     padding: 1px;
 }
-QPushButton::hover,QToolButton::hover{
+QPushButton::hover{
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                  stop: 0 #758385, stop: 0.5 #122C39,
                                  stop: 1.0 #0E7788);
     border-color: #11505C;
 }
-QPushButton::pressed,QToolButton::pressed{
+QPushButton::pressed{
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                  stop: 0 #969B9C, stop: 0.5 #16354B,
                                  stop: 1.0 #244F76);
     border-color: #11505C;
 }
-QPushButton::disabled,QToolButton::disabled{
+QPushButton::disabled{
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                  stop: 0 #282B2C, stop: 0.5 #09121A,
                                  stop: 1.0 #111D29);
@@ -69,54 +44,9 @@ QDialog QPushButton,QDialog QToolButton{
   min-width:30px;
   min-height:23px;
 }
-QToolButton[objectName="minimizeToolBtn"] {
-    background: transparent;
-    border:none;
-    image:url(qss/minimize.png)
-}
-QToolButton[objectName="minimizeToolBtn"]:hover,QToolButton[objectName="minimizeToolBtn"]:pressed {
-    image:url(qss/minimize_hover.png)
-}
-QToolButton[objectName="maximizeToolBtn"] {
-    background: transparent;
-    border:none;
-    image:url(qss/maximize.png)
-}
-QToolButton[objectName="maximizeToolBtn"]:hover,QToolButton[objectName="maximizeToolBtn"]:pressed {
-    image:url(qss/maximize_hover.png)
-}
-QToolButton[objectName="closeToolBtn"],QToolButton[objectName="customCloseWindow"] {
-    background: transparent;
-    border:none;
-    image:url(qss/close.png)
-}
-QToolButton[objectName="closeToolBtn"]:hover,QToolButton[objectName="closeToolBtn"]:pressed{
-    image:url(qss/close_hover.png)
-}
-QToolButton[objectName="customCloseWindow"]:hover,QToolButton[objectName="customCloseWindow"]:pressed{
-    image:url(qss/close_hover.png)
-}
-QToolButton[objectName="titleSetUpToolBtn"]{
-    background: transparent;
-    border:none;
-    image:url(qss/setup.png)
-}
-DailForm QToolButton#oneToolBtn,QToolButton#OneToolBtn,QToolButton#twoToolBtn,QToolButton#threeToolBtn,
-         QToolButton#fourToolBtn,QToolButton#fiveToolBtn,QToolButton#sixToolBtn,
-         QToolButton#sevenToolBtn,QToolButton#eightToolBtn,QToolButton#nineToolBtn,
-         QToolButton#starToolBtn,QToolButton#zeroToolBtn,QToolButton#sharpToolBtn {
-    font-size:36px;
-    border-radius: 10px;
-}
-DailForm QToolButton#delToolBtn{
-    border-radius: 10px;
-}
-QFrame{
-    border-color:#32435E;
-    border-width:1px;
-    border-radius: 3px;
-}
-QLineEdit,QTextEdit {
+
+
+QLineEdit{
     border: 1px solid #32435E;
     border-radius: 3px;
     /* padding: 0 8px; */

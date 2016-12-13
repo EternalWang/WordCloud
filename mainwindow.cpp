@@ -109,7 +109,25 @@ MainWindow::MainWindow(QWidget *parent) :
     st.insert("So");
     st.insert("What");
     st.insert("About");
-
+    st.insert("After");
+    st.insert("Any");
+    st.insert("Because");
+    st.insert("Why");
+    st.insert("Been");
+    st.insert("Four");
+    st.insert("Three");
+    st.insert("Since");
+    st.insert("Some");
+    st.insert("0");
+    st.insert("1");
+    st.insert("2");
+    st.insert("3");
+    st.insert("4");
+    st.insert("5");
+    st.insert("6");
+    st.insert("7");
+    st.insert("8");
+    st.insert("9");
 }
 
 MainWindow::~MainWindow()
@@ -117,7 +135,7 @@ MainWindow::~MainWindow()
 }
 bool judge(QChar s)//判断是否为单词的字母
 {
-    if((s>='a'&&s<='z')||(s>='A'&&s<='Z')||s=='\'')
+    if((s>='a'&&s<='z')||(s>='A'&&s<='Z')||s=='\''||(s>='0'&&s<='9')||s=='-')
         return true;
     return false;
 }
@@ -275,7 +293,7 @@ void MainWindow::saveFile()
 
 void MainWindow::choose()
 {
-       QDialog *dlg = new QDialog(this);
+       dlg = new QDialog(this);
        QLabel *lab = new QLabel(dlg);
        QLabel *lab2 = new QLabel(dlg);
        lineEdit = new QLineEdit(dlg);
@@ -314,9 +332,7 @@ void MainWindow::choose()
 
 
        //connect(btn,SIGNAL(clicked()),this,SLOT(changecolorscheme())
-       connect(btn,SIGNAL(clicked()),this,SLOT(changespeed()));
-       connect(btn,SIGNAL(clicked()),this,SLOT(selectWord()));
-       connect(btn,SIGNAL(clicked()),this,SLOT(changecolorscheme()));
+       connect(btn,SIGNAL(clicked()),this,SLOT(change()));
        QVBoxLayout *layout = new QVBoxLayout;
        layout->addWidget(lab);
        layout->addWidget(lineEdit);
@@ -329,31 +345,19 @@ void MainWindow::choose()
 }
 
 
-void MainWindow::changespeed()//选择速度
+void MainWindow::change()//设置所有的变量
 {
     //QString str_speed = lineEdit->text();
     //bool ok = true;
     //controll_speed = str_speed.toInt(&ok,10);
-}
-
-void MainWindow::selectWord()
-{
     QString str_fren = lineEdit->text();
     bool ok = true;
     controll_fren = str_fren.toInt(&ok,10);
-}
-
-void MainWindow::changecolorscheme()//选择颜色模式
-{
     tmpp = groupBox->checkedId();
     qDebug()<<tmpp;
-
+    dlg->hide();
 }
-/*
-v.clear();//清空vector v
-mp.clear();//清空map mp
-map<QString,int>::iterator p;//迭代器
-*/
+
 void MainWindow::reflash()
 {
 
